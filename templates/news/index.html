@@ -1,52 +1,117 @@
 {% extends "base.html" %}
 
-{% block title %}Home - GlobalNews{% endblock %}
+{% block title %}GlobalDiscovery - World News Portal{% endblock %}
 
 {% block content %}
-<!-- Glass Hero Section -->
-{% if featured_article %}
+<!-- Breaking News Ticker -->
+<section class="breaking-news-bar reveal">
+    <div class="breaking-label">Breaking News</div>
+    <marquee scrollamount="5">
+        {% for article in side_articles %}
+            &bull; {{ article.title }} &nbsp;&nbsp;&nbsp;&nbsp;
+        {% endfor %}
+    </marquee>
+</section>
+
+<!-- Hero Section: Feature + Side Headlines -->
 <section class="hero-news">
-    <div class="glass-hero reveal">
-        <a href="{% url 'article_detail' featured_article.slug %}" class="featured-card">
-            <div class="img-container">
-                {% if featured_article.image_url %}
-                    <img src="{{ featured_article.image_url }}" alt="{{ featured_article.title }}" loading="lazy">
-                {% else %}
-                    <div class="img-placeholder">{{ featured_article.category }}</div>
+    <div class="portal-grid-hero">
+        <!-- Main Lead Story -->
+        {% if featured_article %}
+        <div class="main-feature reveal">
+            <a href="{% url 'article_detail' featured_article.slug %}" class="featured-card">
+                <div class="img-container">
+                    {% if featured_article.image_url %}
+                        <img src="{{ featured_article.image_url }}" alt="{{ featured_article.title }}" loading="lazy">
+                    {% else %}
+                        <div class="img-placeholder">{{ featured_article.category }}</div>
+                    {% endif %}
+                </div>
+                <div class="featured-hero-content">
+                    <div class="article-meta">{{ featured_article.category }} | {{ featured_article.published_at|date:"M d, Y" }}</div>
+                    <h1>{{ featured_article.title }}</h1>
+                    <p>{{ featured_article.description|truncatewords:40 }}</p>
+                </div>
+            </a>
+        </div>
+        {% endif %}
+
+        <!-- Side Headlines (Asymmetrical Sidebar) -->
+        <div class="side-headlines reveal">
+            {% for article in side_articles %}
+            <a href="{% url 'article_detail' article.slug %}" class="side-item">
+                <div class="meta">{{ article.category }}</div>
+                <h4>{{ article.title }}</h4>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- World News Section -->
+{% if world_news %}
+<section class="news-section-wrap reveal">
+    <div class="section-header world">
+        <h2>World</h2>
+        <a href="{% url 'category_view' 'World' %}" class="see-all">See All Articles</a>
+    </div>
+    <div class="section-grid">
+        {% for article in world_news %}
+        <a href="{% url 'article_detail' article.slug %}" class="section-card">
+            <div class="img-wrap">
+                {% if article.image_url %}
+                    <img src="{{ article.image_url }}" alt="{{ article.title }}" loading="lazy">
                 {% endif %}
             </div>
-            <div class="featured-hero-content">
-                <div class="article-meta">{{ featured_article.category }} | {{ featured_article.published_at|date:"M d, Y" }}</div>
-                <h1>{{ featured_article.title }}</h1>
-                <p>{{ featured_article.description|truncatewords:40 }}</p>
-            </div>
+            <h3>{{ article.title }}</h3>
         </a>
+        {% endfor %}
     </div>
 </section>
 {% endif %}
 
-<!-- Stunning Latest News Grid -->
-<section class="latest-section">
-    <h2 class="section-title reveal">Infinite Discoveries</h2>
-    <div class="articles-grid">
-        {% for article in latest_articles %}
-        <a href="{% url 'article_detail' article.slug %}" class="article-card">
-            <div class="img-container">
+<!-- Tech News Section -->
+{% if tech_news %}
+<section class="news-section-wrap reveal">
+    <div class="section-header tech">
+        <h2>Technology</h2>
+        <a href="{% url 'category_view' 'Tech' %}" class="see-all">See All Articles</a>
+    </div>
+    <div class="section-grid">
+        {% for article in tech_news %}
+        <a href="{% url 'article_detail' article.slug %}" class="section-card">
+            <div class="img-wrap">
                 {% if article.image_url %}
                     <img src="{{ article.image_url }}" alt="{{ article.title }}" loading="lazy">
-                {% else %}
-                    <div class="img-placeholder">{{ article.category }}</div>
                 {% endif %}
             </div>
-            <div class="article-meta">{{ article.category }}</div>
             <h3>{{ article.title }}</h3>
-            <p>{{ article.description|truncatewords:15 }}</p>
         </a>
-        {% empty %}
-        <div class="placeholder">Awaiting the next discovery...</div>
         {% endfor %}
     </div>
-
-    {% include "news/pagination.html" %}
 </section>
+{% endif %}
+
+<!-- Sports News Section -->
+{% if sports_news %}
+<section class="news-section-wrap reveal">
+    <div class="section-header sports">
+        <h2>Sports</h2>
+        <a href="{% url 'category_view' 'Sports' %}" class="see-all">See All Articles</a>
+    </div>
+    <div class="section-grid">
+        {% for article in sports_news %}
+        <a href="{% url 'article_detail' article.slug %}" class="section-card">
+            <div class="img-wrap">
+                {% if article.image_url %}
+                    <img src="{{ article.image_url }}" alt="{{ article.title }}" loading="lazy">
+                {% endif %}
+            </div>
+            <h3>{{ article.title }}</h3>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
 {% endblock %}

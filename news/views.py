@@ -19,9 +19,16 @@ class HomeView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        all_articles = self.get_queryset()
+        all_articles = Article.objects.filter(published_at__isnull=False).order_by('-published_at')
+        
         context['featured_article'] = all_articles.first()
-        context['latest_articles'] = all_articles[1:]
+        context['side_articles'] = all_articles[1:6]  # 5 articles for the hero sidebar
+        
+        # Categorized Sections
+        context['world_news'] = Article.objects.filter(category='World').order_by('-published_at')[:4]
+        context['tech_news'] = Article.objects.filter(category='Tech').order_by('-published_at')[:4]
+        context['sports_news'] = Article.objects.filter(category='Sports').order_by('-published_at')[:4]
+        
         context['categories'] = Article.CATEGORY_CHOICES
         return context
 
