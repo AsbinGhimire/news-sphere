@@ -11,13 +11,14 @@ class Article(models.Model):
     ]
 
     title = models.CharField(max_length=255, default='')
-    description = models.TextField(default='')
-    content = models.TextField(default='')
-    source = models.CharField(max_length=200, default='')
+    description = models.TextField(null=True, blank=True, default='')
+    content = models.TextField(null=True, blank=True, default='')
+    source = models.CharField(max_length=200, null=True, blank=True, default='')
     author = models.CharField(max_length=100, null=True, blank=True, default='')
-    image_url = models.URLField(max_length=500, default='')
-    published_at = models.DateTimeField(default=timezone.now)
+    image_url = models.URLField(max_length=500, null=True, blank=True, default='')
+    published_at = models.DateTimeField(default=timezone.now, null=True, blank=True)
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='World')
+    article_id = models.CharField(max_length=255, unique=True, null=True, blank=True)
     ai_summary = models.TextField(blank=True, default='')
     paraphrased_content = models.TextField(blank=True, default='')
     

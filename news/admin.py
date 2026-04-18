@@ -6,3 +6,16 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'source', 'published_at')
     list_filter = ('category', 'source', 'published_at')
     search_fields = ('title', 'content', 'ai_summary')
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'category', 'source', 'author', 'published_at', 'image_url')
+        }),
+        ('Content', {
+            'fields': ('description', 'content')
+        }),
+        ('AI Generated (Automated)', {
+            'fields': ('ai_summary', 'paraphrased_content'),
+            'classes': ('collapse',),
+            'description': 'These fields are automatically generated on save if left empty.'
+        }),
+    )
