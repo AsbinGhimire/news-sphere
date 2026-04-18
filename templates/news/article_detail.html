@@ -1,6 +1,9 @@
-{% extends "base.html" %}
-
 {% block title %}{{ article.title }} - GlobalNews{% endblock %}
+
+{% block meta_description %}{{ article.description|truncatechars:160 }}{% endblock %}
+{% block og_title %}{{ article.title }}{% endblock %}
+{% block og_description %}{{ article.description|truncatechars:160 }}{% endblock %}
+{% block og_image %}{{ article.image_url }}{% endblock %}
 
 {% block content %}
 <article class="article-detail">
@@ -15,7 +18,7 @@
     </header>
 
     {% if article.image_url %}
-    <img src="{{ article.image_url }}" alt="{{ article.title }}" class="detail-hero-img">
+    <img src="{{ article.image_url }}" alt="{{ article.title }}" class="detail-hero-img" loading="lazy">
     {% endif %}
 
                 <div class="share-buttons">

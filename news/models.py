@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.utils.text import slugify
 
 class Article(models.Model):
     CATEGORY_CHOICES = [
@@ -19,11 +20,23 @@ class Article(models.Model):
     published_at = models.DateTimeField(default=timezone.now, null=True, blank=True)
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='World')
     article_id = models.CharField(max_length=255, unique=True, null=True, blank=True)
+    slug = models.SlugField(max_length=255, unique=True, null=True, blank=True)
     ai_summary = models.TextField(blank=True, default='')
     paraphrased_content = models.TextField(blank=True, default='')
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.title)
+            slug = base_slug
+            counter = 1
+            while Article.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title

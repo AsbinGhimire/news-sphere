@@ -7,10 +7,10 @@
 {% if featured_article %}
 <section class="hero-news">
     <div class="hero-grid">
-        <a href="{% url 'article_detail' featured_article.pk %}" class="featured-card">
+        <a href="{% url 'article_detail' featured_article.slug %}" class="featured-card">
             <div class="img-container">
                 {% if featured_article.image_url %}
-                    <img src="{{ featured_article.image_url }}" alt="{{ featured_article.title }}">
+                    <img src="{{ featured_article.image_url }}" alt="{{ featured_article.title }}" loading="lazy">
                 {% else %}
                     <div class="img-placeholder">{{ featured_article.category }}</div>
                 {% endif %}
@@ -30,10 +30,10 @@
     <h2 class="section-title">Latest Updates</h2>
     <div class="articles-grid">
         {% for article in latest_articles %}
-        <a href="{% url 'article_detail' article.pk %}" class="article-card">
+        <a href="{% url 'article_detail' article.slug %}" class="article-card">
             <div class="img-container">
                 {% if article.image_url %}
-                    <img src="{{ article.image_url }}" alt="{{ article.title }}">
+                    <img src="{{ article.image_url }}" alt="{{ article.title }}" loading="lazy">
                 {% else %}
                     <div class="img-placeholder">{{ article.category }}</div>
                 {% endif %}

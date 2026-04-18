@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}GlobalNews - Professional News Portal{% endblock %}</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="{% block meta_description %}GlobalNews provides the latest world, tech, sports, and business news with professional integrity.{% endblock %}">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{% block og_title %}GlobalNews Portal{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Your source for professional journalism.{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}/static/images/logo.png{% endblock %}">
+    
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

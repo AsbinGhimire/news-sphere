@@ -3,13 +3,16 @@ from .models import Article
 
 from django.views.generic import ListView, DetailView
 from django.db.models import Q
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from .models import Article
 
+@method_decorator(cache_page(60 * 15), name='dispatch')
 class HomeView(ListView):
     model = Article
     template_name = 'news/index.html'
     context_object_name = 'latest_articles'
-    paginate_by = 6
+    paginate_by = 10
 
     def get_queryset(self):
         return Article.objects.filter(published_at__isnull=False).order_by('-published_at')
@@ -18,7 +21,6 @@ class HomeView(ListView):
         context = super().get_context_data(**kwargs)
         all_articles = self.get_queryset()
         context['featured_article'] = all_articles.first()
-        # Ensure latest_articles in the context starts from the 2nd article
         context['latest_articles'] = all_articles[1:]
         context['categories'] = Article.CATEGORY_CHOICES
         return context
@@ -27,12 +29,15 @@ class ArticleDetailView(DetailView):
     model = Article
     template_name = 'news/article_detail.html'
     context_object_name = 'article'
+    slug_field = 'slug'
+    slug_url_kwarg = 'slug'
 
+@method_decorator(cache_page(60 * 15), name='dispatch')
 class CategoryListView(ListView):
     model = Article
     template_name = 'news/category.html'
     context_object_name = 'articles'
-    paginate_by = 6
+    paginate_by = 10
 
     def get_queryset(self):
         self.category_name = self.kwargs['category_name']
@@ -45,9 +50,9 @@ class CategoryListView(ListView):
 
 class ArticleSearchView(ListView):
     model = Article
-    template_name = 'news/category.html'  # Reusing category grid layout
+    template_name = 'news/category.html'
     context_object_name = 'articles'
-    paginate_by = 6
+    paginate_by = 10
 
     def get_queryset(self):
         query = self.request.GET.get('q')

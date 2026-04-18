@@ -7,10 +7,10 @@
     <h2 class="section-title">{{ category_name }} News</h2>
     <div class="articles-grid">
         {% for article in articles %}
-        <a href="{% url 'article_detail' article.pk %}" class="article-card">
+        <a href="{% url 'article_detail' article.slug %}" class="article-card">
             <div class="img-container">
                 {% if article.image_url %}
-                    <img src="{{ article.image_url }}" alt="{{ article.title }}">
+                    <img src="{{ article.image_url }}" alt="{{ article.title }}" loading="lazy">
                 {% else %}
                     <div class="img-placeholder">{{ article.category }}</div>
                 {% endif %}
