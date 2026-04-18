@@ -1,14 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Scroll Progress Bar
-    const progress = document.getElementById('scroll-progress');
-    if (progress) {
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            progress.style.width = scrolled + "%";
+    // Theme Engine Logic
+    const body = document.body;
+    const themeToggle = document.getElementById('theme-toggle');
+    const currentTheme = localStorage.getItem('theme');
+
+    if (currentTheme === 'light') {
+        body.classList.add('light-mode');
+    }
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            let theme = 'dark';
+            if (body.classList.contains('light-mode')) {
+                theme = 'light';
+            }
+            localStorage.setItem('theme', theme);
         });
     }
+
+    // Scroll Progress Bar
+    ...
 
     // Intersection Observer for Reveal Animations
     const observerOptions = {

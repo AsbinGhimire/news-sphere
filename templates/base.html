@@ -27,10 +27,15 @@
         <div class="container">
             <a href="/" class="logo">Global<span>Discovery</span></a>
             
-            <form action="{% url 'search_view' %}" method="get" class="search-form">
-                <input type="text" name="q" placeholder="Explore stories..." aria-label="Search" required>
-                <button type="submit">Search</button>
-            </form>
+            <div class="header-tools">
+                <form action="{% url 'search_view' %}" method="get" class="search-form">
+                    <input type="text" name="q" placeholder="Explore stories..." aria-label="Search" required>
+                    <button type="submit">Search</button>
+                </form>
+                <button id="theme-toggle" class="theme-switch" aria-label="Toggle Theme">
+                    <span class="theme-icon"></span>
+                </button>
+            </div>
         </div>
     </header>
 

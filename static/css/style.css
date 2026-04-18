@@ -14,6 +14,18 @@
     --blur: blur(12px);
 }
 
+/* Frost (Light Mode) Theme */
+body.light-mode {
+    --bg: #f8fafc;
+    --bg-card: rgba(255, 255, 255, 0.7);
+    --text: #0f172a;
+    --text-muted: #64748b;
+    --border: rgba(15, 23, 42, 0.1);
+    --glass: rgba(15, 23, 42, 0.03);
+    --glass-heavy: rgba(248, 250, 252, 0.82);
+    --primary-glow: rgba(139, 92, 246, 0.15);
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -82,6 +94,46 @@ h1, h2, h3, .logo {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.header-tools {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.theme-switch {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    width: 50px;
+    height: 26px;
+    border-radius: 99px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.theme-switch:hover {
+    border-color: var(--primary);
+}
+
+.theme-icon {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: var(--secondary);
+    border-radius: 50%;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 10px var(--secondary);
+}
+
+body.light-mode .theme-icon {
+    transform: translateX(24px);
+    background: var(--primary);
+    box-shadow: 0 0 10px var(--primary);
 }
 
 .logo {
