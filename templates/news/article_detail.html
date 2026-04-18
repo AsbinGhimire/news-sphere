@@ -1,4 +1,6 @@
-{% block title %}{{ article.title }} - GlobalNews{% endblock %}
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }} - GlobalDiscovery{% endblock %}
 
 {% block meta_description %}{{ article.description|truncatechars:160 }}{% endblock %}
 {% block og_title %}{{ article.title }}{% endblock %}
@@ -6,45 +8,96 @@
 {% block og_image %}{{ article.image_url }}{% endblock %}
 
 {% block content %}
-<section class="immersive-hero">
-    {% if article.image_url %}
-    <img src="{{ article.image_url }}" alt="{{ article.title }}" loading="lazy">
-    {% endif %}
-</section>
-
-<div class="immersive-content-wrap">
-    <article class="article-detail reveal">
+<div class="container article-page-container">
+    <!-- Main Content Pillar -->
+    <main class="main-article-body">
         <header class="detail-header">
             <span class="category-badge">{{ article.category }}</span>
             <h1>{{ article.title }}</h1>
-            <div class="meta">
-                By <strong>{{ article.author|default:"Global Reporter" }}</strong> | 
-                Source: <strong>{{ article.source }}</strong> |
+            <div class="detail-meta">
+                By <strong>{{ article.author|default:"Global Reporter" }}</strong> &bull; 
+                Source: <strong>{{ article.source }}</strong> &bull;
                 {{ article.published_at|date:"F d, Y" }}
             </div>
         </header>
 
-        <div class="article-body">
-            <p class="description"><strong>{{ article.description }}</strong></p>
-            
-            <div class="body-text">
+        {% if article.image_url %}
+        <section class="card-img-primary reveal">
+            <img src="{{ article.image_url }}" alt="{{ article.title }}" style="width:100%; border-radius:8px; margin-bottom:var(--space-xl);" loading="lazy">
+        </section>
+        {% endif %}
+
+        {% if article.ai_summary %}
+        <section class="ai-summary-pulse reveal">
+            <h3><span class="ai-icon">✦</span> Intelligence Insight</h3>
+            <p>{{ article.ai_summary }}</p>
+        </section>
+        {% endif %}
+
+        <!-- Simple Words Toggle -->
+        {% if article.paraphrased_content %}
+        <div class="article-controls reveal">
+            <button id="simple-toggle" class="simple-toggle-btn">
+                <span class="toggle-icon">🖋️</span> Read in Simple Words
+            </button>
+        </div>
+        {% endif %}
+
+        <!-- Article Body -->
+        <article class="article-text-content reveal">
+            <div id="standard-content">
                 {{ article.content|linebreaks }}
             </div>
-
-            {% if article.ai_summary %}
-            <section class="ai-glass-card reveal">
-                <h3><span class="ai-icon">✦</span> Intelligence Insight</h3>
-                <p>{{ article.ai_summary }}</p>
-            </section>
-            {% endif %}
-
             {% if article.paraphrased_content %}
-            <section class="ai-glass-card reveal">
-                <h3><span class="ai-icon">✦</span> Simplified Summary</h3>
-                <p>{{ article.paraphrased_content }}</p>
-            </section>
+            <div id="simple-content" style="display: none; font-style: italic;">
+                {{ article.paraphrased_content|linebreaks }}
+            </div>
             {% endif %}
-        </div>
-    </article>
+        </article>
+    </main>
+
+    <!-- Sticky Related Sidebar -->
+    <aside class="related-sidebar reveal">
+        <h3 class="sidebar-title">Related Stories</h3>
+        {% for related in related_articles %}
+        <a href="{% url 'article_detail' related.slug %}" class="related-card">
+            <div class="img-mini">
+                {% if related.image_url %}
+                <img src="{{ related.image_url }}" alt="{{ related.title }}" loading="lazy">
+                {% endif %}
+            </div>
+            <h5>{{ related.title }}</h5>
+        </a>
+        {% empty %}
+        <p class="text-muted">Discovering more stories for you...</p>
+        {% endfor %}
+    </aside>
 </div>
+
+<!-- Simple Word Toggle Logic -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleBtn = document.getElementById('simple-toggle');
+    const standardContent = document.getElementById('standard-content');
+    const simpleContent = document.getElementById('simple-content');
+
+    if (toggleBtn && standardContent && simpleContent) {
+        toggleBtn.addEventListener('click', () => {
+            const isSimple = simpleContent.style.display === 'block';
+            
+            if (isSimple) {
+                simpleContent.style.display = 'none';
+                standardContent.style.display = 'block';
+                toggleBtn.classList.remove('active');
+                toggleBtn.innerHTML = '<span class="toggle-icon">🖋️</span> Read in Simple Words';
+            } else {
+                simpleContent.style.display = 'block';
+                standardContent.style.display = 'none';
+                toggleBtn.classList.add('active');
+                toggleBtn.innerHTML = '<span class="toggle-icon">✔️</span> Standard View';
+            }
+        });
+    }
+});
+</script>
 {% endblock %}

@@ -39,6 +39,15 @@ class ArticleDetailView(DetailView):
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        article = self.get_object()
+        # Fetch related news from same category, excluding current
+        context['related_articles'] = Article.objects.filter(
+            category=article.category
+        ).exclude(id=article.id)[:4]
+        return context
+
 @method_decorator(cache_page(60 * 15), name='dispatch')
 class CategoryListView(ListView):
     model = Article
