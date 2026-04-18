@@ -10,17 +10,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="navbar">
+    <header class="header-main">
         <div class="container">
             <a href="/" class="logo">Global<span>News</span></a>
-            <nav>
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/admin/">Admin</a></li>
-                </ul>
-            </nav>
         </div>
     </header>
+
+    <nav class="navbar">
+        <div class="container">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/category/World/">World</a></li>
+                <li><a href="/category/Tech/">Tech</a></li>
+                <li><a href="/category/Sports/">Sports</a></li>
+                <li><a href="/category/Business/">Business</a></li>
+                <li><a href="/admin/">Admin Portal</a></li>
+            </ul>
+        </div>
+    </nav>
 
     <main class="container">
         {% block content %}
@@ -29,7 +36,7 @@
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2026 GlobalNews. All rights reserved.</p>
+            <p>&copy; 2026 GlobalNews - Professional Independent Journalism. All rights reserved.</p>
         </div>
     </footer>
 

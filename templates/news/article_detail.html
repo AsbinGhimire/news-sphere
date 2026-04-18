@@ -5,55 +5,19 @@
 {% block content %}
 <article class="article-detail">
     <header class="detail-header">
-        <div class="breadcrumb">
-            <a href="/">Home</a> / <a href="{% url 'category_view' article.category %}">{{ article.category }}</a>
-        </div>
-        <span class="badge">{{ article.category }}</span>
+        <span class="category-badge">{{ article.category }}</span>
         <h1>{{ article.title }}</h1>
-        <div class="meta-info">
-            <span class="author">By {{ article.author|default:"GlobalNews Staff" }}</span>
-            <span class="separator">|</span>
-            <span class="date">{{ article.published_at|date:"F d, Y H:i" }}</span>
-            <span class="separator">|</span>
-            <span class="source">Source: {{ article.source }}</span>
+        <div class="meta">
+            By <strong>{{ article.author|default:"GlobalNews Reporter" }}</strong> | 
+            Source: <strong>{{ article.source }}</strong> |
+            {{ article.published_at|date:"F d, Y" }}
         </div>
     </header>
 
     {% if article.image_url %}
-    <div class="detail-image">
-        <img src="{{ article.image_url }}" alt="{{ article.title }}">
-    </div>
+    <img src="{{ article.image_url }}" alt="{{ article.title }}" class="detail-hero-img">
     {% endif %}
 
-    <div class="detail-layout">
-        <div class="main-content">
-            <p class="description"><strong>{{ article.description }}</strong></p>
-            <div class="content body-text">
-                {{ article.content|linebreaks }}
-            </div>
-
-            {% if article.paraphrased_content %}
-            <div class="paraphrased-section">
-                <h3>Simplified Coverage</h3>
-                <div class="paraphrased-content italic">
-                    {{ article.paraphrased_content|linebreaks }}
-                </div>
-            </div>
-            {% endif %}
-        </div>
-
-        <aside class="sidebar">
-            {% if article.ai_summary %}
-            <div class="ai-summary-card">
-                <h3><span class="ai-icon">AI</span> Key Takeaways</h3>
-                <div class="summary-content">
-                    {{ article.ai_summary|linebreaks }}
-                </div>
-            </div>
-            {% endif %}
-
-            <div class="related-info-card">
-                <h3>Share this News</h3>
                 <div class="share-buttons">
                     <button class="share-btn">Twitter</button>
                     <button class="share-btn">Facebook</button>

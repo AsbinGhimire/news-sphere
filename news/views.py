@@ -2,9 +2,12 @@ from django.shortcuts import render, get_object_or_404
 from .models import Article
 
 def index(request):
-    latest_articles = Article.objects.filter(published_at__isnull=False).order_by('-published_at')[:10]
+    all_articles = Article.objects.filter(published_at__isnull=False).order_by('-published_at')
+    featured_article = all_articles.first()
+    latest_articles = all_articles[1:11]  # Next 10 articles
     categories = Article.CATEGORY_CHOICES
     return render(request, 'news/index.html', {
+        'featured_article': featured_article,
         'latest_articles': latest_articles,
         'categories': categories
     })
