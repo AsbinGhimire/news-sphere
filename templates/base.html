@@ -18,32 +18,30 @@
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div id="scroll-progress"></div>
+
     <header class="header-main">
-        <div class="container header-content">
-            <div class="header-left">
-                <a href="/" class="logo">Global<span>News</span></a>
-            </div>
-            <div class="header-right">
-                <form action="{% url 'search_view' %}" method="get" class="search-form">
-                    <input type="text" name="q" placeholder="Search news..." aria-label="Search" required>
-                    <button type="submit">Search</button>
-                </form>
-            </div>
+        <div class="container">
+            <a href="/" class="logo">Global<span>Discovery</span></a>
+            
+            <form action="{% url 'search_view' %}" method="get" class="search-form">
+                <input type="text" name="q" placeholder="Explore stories..." aria-label="Search" required>
+                <button type="submit">Search</button>
+            </form>
         </div>
     </header>
 
     <nav class="navbar">
         <div class="container">
             <ul>
-                <li><a href="/">Home</a></li>
+                <li><a href="/">Latest</a></li>
                 <li><a href="/category/World/">World</a></li>
-                <li><a href="/category/Tech/">Tech</a></li>
-                <li><a href="/category/Sports/">Sports</a></li>
-                <li><a href="/category/Business/">Business</a></li>
-                <li><a href="/admin/">Admin Portal</a></li>
+                <li><a href="/category/Tech/">Future</a></li>
+                <li><a href="/category/Sports/">Active</a></li>
+                <li><a href="/category/Business/">Growth</a></li>
             </ul>
         </div>
     </nav>

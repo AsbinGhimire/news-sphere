@@ -3,10 +3,10 @@
 {% block title %}Home - GlobalNews{% endblock %}
 
 {% block content %}
-<!-- Top News Hero -->
+<!-- Glass Hero Section -->
 {% if featured_article %}
 <section class="hero-news">
-    <div class="hero-grid">
+    <div class="glass-hero reveal">
         <a href="{% url 'article_detail' featured_article.slug %}" class="featured-card">
             <div class="img-container">
                 {% if featured_article.image_url %}
@@ -15,19 +15,19 @@
                     <div class="img-placeholder">{{ featured_article.category }}</div>
                 {% endif %}
             </div>
-            <div class="article-meta">{{ featured_article.category }} | {{ featured_article.published_at|date:"M d, Y" }}</div>
-            <h1>{{ featured_article.title }}</h1>
-            <p>{{ featured_article.description|truncatewords:40 }}</p>
+            <div class="featured-hero-content">
+                <div class="article-meta">{{ featured_article.category }} | {{ featured_article.published_at|date:"M d, Y" }}</div>
+                <h1>{{ featured_article.title }}</h1>
+                <p>{{ featured_article.description|truncatewords:40 }}</p>
+            </div>
         </a>
-        
-        <!-- Could add secondary featured items here if needed -->
     </div>
 </section>
 {% endif %}
 
-<!-- Latest News Grid -->
+<!-- Stunning Latest News Grid -->
 <section class="latest-section">
-    <h2 class="section-title">Latest Updates</h2>
+    <h2 class="section-title reveal">Infinite Discoveries</h2>
     <div class="articles-grid">
         {% for article in latest_articles %}
         <a href="{% url 'article_detail' article.slug %}" class="article-card">
@@ -40,10 +40,10 @@
             </div>
             <div class="article-meta">{{ article.category }}</div>
             <h3>{{ article.title }}</h3>
-            <p>{{ article.description|truncatewords:20 }}</p>
+            <p>{{ article.description|truncatewords:15 }}</p>
         </a>
         {% empty %}
-        <div class="placeholder">No further stories at this moment.</div>
+        <div class="placeholder">Awaiting the next discovery...</div>
         {% endfor %}
     </div>
 
