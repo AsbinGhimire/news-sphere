@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Home - GlobalNews{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Welcome to GlobalNews</h1>
+    <p>Your source for professional, scalable, and reliable news reporting.</p>
+    <a href="/admin/" class="btn">Add New Article</a>
+</section>
+
+<nav class="category-nav">
+    <ul>
+        {% for cat_key, cat_val in categories %}
+        <li><a href="{% url 'category_view' cat_key %}" class="cat-link">{{ cat_val }}</a></li>
+        {% endfor %}
+    </ul>
+</nav>
+
+<section class="latest-news">
+    <h2>Latest News</h2>
+    <div class="articles-grid">
+        {% for article in latest_articles %}
+        <article class="article-card">
+            <div class="card-image">
+                {% if article.image_url %}
+                <img src="{{ article.image_url }}" alt="{{ article.title }}">
+                {% else %}
+                <div class="img-placeholder">{{ article.category }}</div>
+                {% endif %}
+                <span class="card-badge">{{ article.category }}</span>
+            </div>
+            <div class="card-content">
+                <span class="card-date">{{ article.published_at|date:"M d, Y" }}</span>
+                <h3><a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a></h3>
+                <p>{{ article.description|truncatewords:20 }}</p>
+                <div class="card-footer">
+                    <span class="source">Source: {{ article.source }}</span>
+                    <a href="{% url 'article_detail' article.pk %}" class="read-more">Read More &rarr;</a>
+                </div>
+            </div>
+        </article>
+        {% empty %}
+        <div class="article-placeholder">
+            <p>No articles available. Run the population script to add sample news!</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
