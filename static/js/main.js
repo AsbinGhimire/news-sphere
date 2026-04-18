@@ -4,23 +4,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('theme-toggle');
     const currentTheme = localStorage.getItem('theme');
 
-    if (currentTheme === 'light') {
-        body.classList.add('light-mode');
+    // Default to Light Mode (none), add 'dark-mode' if preference is dark
+    if (currentTheme === 'dark') {
+        body.classList.add('dark-mode');
     }
 
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
-            body.classList.toggle('light-mode');
-            let theme = 'dark';
-            if (body.classList.contains('light-mode')) {
-                theme = 'light';
-            }
+            body.classList.toggle('dark-mode');
+            const theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
             localStorage.setItem('theme', theme);
         });
     }
 
     // Scroll Progress Bar
-    ...
+    const progress = document.getElementById('scroll-progress');
+    if (progress) {
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            progress.style.width = scrolled + "%";
+        });
+    }
 
     // Intersection Observer for Reveal Animations
     const observerOptions = {

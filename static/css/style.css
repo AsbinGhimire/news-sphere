@@ -1,29 +1,29 @@
 :root {
     --primary: #8b5cf6; /* Electric Violet */
-    --primary-glow: rgba(139, 92, 246, 0.4);
+    --primary-glow: rgba(139, 92, 246, 0.15);
     --secondary: #22d3ee; /* Cyan */
-    --bg: #0f172a; /* Deep Slate */
-    --bg-card: rgba(30, 41, 59, 0.7); /* Glass Slate */
-    --text: #f8fafc;
-    --text-muted: #94a3b8;
-    --border: rgba(255, 255, 255, 0.1);
+    --bg: #f8fafc; /* Light Slate Foundation */
+    --bg-card: rgba(255, 255, 255, 0.7); /* Frost Glass */
+    --text: #0f172a; /* Deep Slate Text */
+    --text-muted: #64748b;
+    --border: rgba(15, 23, 42, 0.1);
     --white: #ffffff;
     --container-width: 1200px;
-    --glass: rgba(255, 255, 255, 0.03);
-    --glass-heavy: rgba(15, 23, 42, 0.8);
+    --glass: rgba(15, 23, 42, 0.03);
+    --glass-heavy: rgba(248, 250, 252, 0.82);
     --blur: blur(12px);
 }
 
-/* Frost (Light Mode) Theme */
-body.light-mode {
-    --bg: #f8fafc;
-    --bg-card: rgba(255, 255, 255, 0.7);
-    --text: #0f172a;
-    --text-muted: #64748b;
-    --border: rgba(15, 23, 42, 0.1);
-    --glass: rgba(15, 23, 42, 0.03);
-    --glass-heavy: rgba(248, 250, 252, 0.82);
-    --primary-glow: rgba(139, 92, 246, 0.15);
+/* Obsidian (Dark Mode) Theme Overrides */
+body.dark-mode {
+    --bg: #0f172a;
+    --bg-card: rgba(30, 41, 59, 0.7);
+    --text: #f8fafc;
+    --text-muted: #94a3b8;
+    --border: rgba(255, 255, 255, 0.1);
+    --glass: rgba(255, 255, 255, 0.03);
+    --glass-heavy: rgba(15, 23, 42, 0.8);
+    --primary-glow: rgba(139, 92, 246, 0.4);
 }
 
 * {
@@ -55,6 +55,7 @@ body {
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 h1, h2, h3, .logo {
@@ -124,16 +125,16 @@ h1, h2, h3, .logo {
     left: 2px;
     width: 20px;
     height: 20px;
-    background: var(--secondary);
+    background: var(--primary);
     border-radius: 50%;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0 10px var(--secondary);
+    box-shadow: 0 0 10px var(--primary);
 }
 
-body.light-mode .theme-icon {
+body.dark-mode .theme-icon {
     transform: translateX(24px);
-    background: var(--primary);
-    box-shadow: 0 0 10px var(--primary);
+    background: var(--secondary);
+    box-shadow: 0 0 10px var(--secondary);
 }
 
 .logo {
@@ -169,10 +170,14 @@ body.light-mode .theme-icon {
     background: transparent;
     border: none;
     padding: 0.5rem 1rem;
-    color: white;
+    color: var(--text);
     font-size: 0.875rem;
     width: 200px;
     outline: none;
+}
+
+.search-form input::placeholder {
+    color: var(--text-muted);
 }
 
 .search-form button {
@@ -194,7 +199,7 @@ body.light-mode .theme-icon {
 
 /* Sub-Navbar */
 .navbar {
-    background: rgba(15, 23, 42, 0.5);
+    background: rgba(15, 23, 42, 0.05);
     border-bottom: 1px solid var(--border);
 }
 
@@ -221,7 +226,7 @@ nav ul li a:hover {
     color: var(--primary);
 }
 
-/* Hero Section - Obsidian Style */
+/* Hero Section */
 .hero-news {
     padding: 4rem 0;
     background: radial-gradient(circle at 50% -20%, var(--primary-glow), transparent);
@@ -266,7 +271,6 @@ nav ul li a:hover {
     letter-spacing: -0.03em;
 }
 
-/* Animations Trigger */
 .reveal {
     opacity: 0;
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
@@ -278,7 +282,6 @@ nav ul li a:hover {
     transform: translateY(0);
 }
 
-/* Grid Design */
 .section-title {
     font-size: 2rem;
     font-weight: 800;
@@ -298,28 +301,12 @@ nav ul li a:hover {
     border-radius: 1.5rem;
     padding: 1.5rem;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.article-card::after {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 200%; height: 100%;
-    background: linear-gradient(115deg, transparent, rgba(255,255,255,0.05), transparent);
-    transition: 0.5s;
-    pointer-events: none;
 }
 
 .article-card:hover {
     transform: translateY(-8px) scale(1.02);
     border-color: var(--primary);
-    box-shadow: 0 20px 40px -20px rgba(0,0,0,0.5);
-}
-
-.article-card:hover::after {
-    left: 100%;
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,0.1);
 }
 
 .article-card .img-container {
@@ -335,7 +322,7 @@ nav ul li a:hover {
     margin-bottom: 1rem;
 }
 
-/* Detail View - Immersive */
+/* Detail View */
 .immersive-hero {
     height: 70vh;
     position: relative;
@@ -355,6 +342,7 @@ nav ul li a:hover {
     background: var(--bg);
     border-radius: 3rem 3rem 0 0;
     padding-top: 5rem;
+    transition: background-color 0.4s ease;
 }
 
 .article-detail {
@@ -363,7 +351,7 @@ nav ul li a:hover {
 }
 
 .ai-glass-card {
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(34, 211, 238, 0.1));
+    background: linear-gradient(135deg, var(--glass), var(--glass));
     backdrop-filter: var(--blur);
     border: 1px solid var(--border);
     border-radius: 2rem;
@@ -375,13 +363,12 @@ nav ul li a:hover {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    color: var(--secondary);
+    color: var(--primary);
     font-size: 0.875rem;
     margin-bottom: 1.5rem;
     text-transform: uppercase;
 }
 
-/* Footer Glass */
 footer {
     background: var(--bg-card);
     backdrop-filter: var(--blur);
@@ -391,21 +378,9 @@ footer {
     margin-top: 8rem;
 }
 
-/* Pagination Glass */
 .pagination a, .pagination span {
     background: var(--glass);
     border: 1px solid var(--border);
     border-radius: 12px;
     color: var(--text-muted);
-}
-
-.pagination a:hover {
-    border-color: var(--primary);
-    color: var(--primary);
-}
-
-@media (max-width: 768px) {
-    .featured-card h1 { font-size: 2.25rem; }
-    .featured-hero-content { padding: 1.5rem; }
-    .immersive-hero { height: 40vh; }
 }
