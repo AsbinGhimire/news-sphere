@@ -4,6 +4,7 @@ from django.utils.text import slugify
 
 class Article(models.Model):
     CATEGORY_CHOICES = [
+        ('Nepal', 'Nepal'),
         ('World', 'World'),
         ('Tech', 'Tech'),
         ('Sports', 'Sports'),

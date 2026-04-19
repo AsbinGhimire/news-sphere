@@ -21,11 +21,22 @@ class HomeView(ListView):
         context = super().get_context_data(**kwargs)
         all_articles = Article.objects.filter(published_at__isnull=False).order_by('-published_at')
         
-        context['featured_article'] = all_articles.first()
-        context['side_articles'] = all_articles[1:6]  # 5 articles for the hero sidebar
+        # Priority 1: Nepal News
+        nepal_news = all_articles.filter(category='Nepal')
+        other_news = all_articles.exclude(category='Nepal')
+        
+        # Featured is always the latest Nepal story if available
+        if nepal_news.exists():
+            context['featured_article'] = nepal_news.first()
+            # Side articles are the next 5 Nepal stories
+            context['side_articles'] = nepal_news[1:6]
+        else:
+            context['featured_article'] = other_news.first()
+            context['side_articles'] = other_news[1:6]
         
         # Categorized Sections
-        context['world_news'] = Article.objects.filter(category='World').order_by('-published_at')[:4]
+        context['nepal_list'] = nepal_news[:4]
+        context['world_news'] = all_articles.filter(category='World').order_by('-published_at')[:4]
         context['tech_news'] = Article.objects.filter(category='Tech').order_by('-published_at')[:4]
         context['sports_news'] = Article.objects.filter(category='Sports').order_by('-published_at')[:4]
         

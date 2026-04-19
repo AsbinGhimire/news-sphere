@@ -1,80 +1,66 @@
-import requests
+import feedparser
 from django.core.management.base import BaseCommand
-from django.conf import settings
 from django.utils.dateparse import parse_datetime
 from django.utils.timezone import make_aware
 from news.models import Article
-import os
-import environ
+from datetime import datetime
+import time
 
 class Command(BaseCommand):
-    help = 'Fetches latest world news from NewsData.io API'
+    help = 'Fetches latest news about Nepal from Google News RSS'
 
     def handle(self, *args, **options):
-        # Ensure we have the latest env vars
-        env = environ.Env()
-        api_key = os.getenv('NEWSDATA_API_KEY')
-
-        if not api_key or api_key == 'your_api_key_here':
-            self.stdout.write(self.style.ERROR('API Key not found or still set to placeholder in .env'))
-            self.stdout.write(self.style.WARNING('Please get a free key from https://newsdata.io/ and update your .env file.'))
-            return
-
-        url = f"https://newsdata.io/api/1/latest?apikey={api_key}&category=world&language=en"
+        # RSS URL for Nepal News (Nepali Language & Region)
+        url = "https://news.google.com/rss/search?q=Nepal&hl=ne&gl=NP&ceid=NP:ne"
 
         self.stdout.write(self.style.SUCCESS(f"Fetching news from {url}..."))
 
         try:
-            response = requests.get(url)
-            response.raise_for_status()
-            data = response.json()
-
-            if data.get('status') == 'error':
-                message = data.get('results', {}).get('message', 'Unknown API Error')
-                self.stdout.write(self.style.ERROR(f"API Error: {message}"))
+            feed = feedparser.parse(url)
+            
+            if feed.bozo:
+                self.stdout.write(self.style.ERROR(f"Error parsing feed: {feed.bozo_exception}"))
                 return
 
             articles_added = 0
-            results = data.get('results', [])
-
-            for item in results:
-                # NewsData.io specific fields
-                title = item.get('title', 'No Title')
-                article_id = item.get('article_id')
-                description = item.get('description', '')
-                content = item.get('content', '')
-                source = item.get('source_id', 'Unknown')
-                author = item.get('creator', ['Unknown'])[0] if item.get('creator') else 'Unknown'
-                image_url = item.get('image_url', '')
-                pub_date_str = item.get('pubDate')
-
-                # Parse publication date
-                published_at = parse_datetime(pub_date_str) if pub_date_str else None
+            
+            for entry in feed.entries:
+                # Basic Mapping
+                title = entry.get('title', 'No Title')
+                article_id = entry.get('id', entry.get('link'))
+                link = entry.get('link', '')
+                description = entry.get('summary', '')
+                source = entry.get('source', {}).get('title', 'Google News')
                 
+                # Handling published date
+                published_at = None
+                if hasattr(entry, 'published_parsed'):
+                    # Convert time_struct to aware datetime
+                    dt = datetime.fromtimestamp(time.mktime(entry.published_parsed))
+                    published_at = make_aware(dt)
+
                 # article_id is our unique identifier to avoid duplicates
                 obj, created = Article.objects.update_or_create(
                     article_id=article_id,
                     defaults={
                         'title': title,
                         'description': description,
-                        'content': content,
+                        'content': description, # RSS often only gives summary
                         'source': source,
-                        'author': author,
-                        'image_url': image_url,
+                        'author': source,
+                        'image_url': '', # Google News RSS doesn't directly provide high-res URLs
                         'published_at': published_at,
-                        'category': 'World',
+                        'category': 'Nepal',
                     }
                 )
 
                 if created:
                     articles_added += 1
-                    self.stdout.write(self.style.SUCCESS(f"Successfully added: {title}"))
+                    # Safely handle console printing for characters like '\u0131'
+                    safe_title = title.encode('ascii', 'ignore').decode('ascii')
+                    self.stdout.write(self.style.SUCCESS(f"Successfully added: {safe_title}"))
 
             self.stdout.write(self.style.SUCCESS(f"Finished! Added {articles_added} new articles."))
 
-        except requests.exceptions.HTTPError as e:
-            self.stdout.write(self.style.ERROR(f"HTTP Error: {e}"))
-        except requests.exceptions.RequestException as e:
-            self.stdout.write(self.style.ERROR(f"Request Error: {e}"))
         except Exception as e:
             self.stdout.write(self.style.ERROR(f"An unexpected error occurred: {e}"))

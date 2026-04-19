@@ -48,6 +48,30 @@
     </div>
 </section>
 
+<!-- Nepal News Section (Priority 1) -->
+{% if nepal_list %}
+<section class="news-section-wrap reveal">
+    <div class="section-header nepal">
+        <h2>Nepal Discovery</h2>
+        <a href="{% url 'category_view' 'Nepal' %}" class="see-all">Explore Nepal</a>
+    </div>
+    <div class="section-grid">
+        {% for article in nepal_list %}
+        <a href="{% url 'article_detail' article.slug %}" class="section-card">
+            <div class="img-wrap">
+                {% if article.image_url %}
+                    <img src="{{ article.image_url }}" alt="{{ article.title }}" loading="lazy">
+                {% else %}
+                    <div class="img-placeholder" style="background:var(--primary-glow); height:100%; display:flex; align-items:center; justify-content:center; font-family:'Outfit'; font-weight:800; color:var(--primary);">Nepal</div>
+                {% endif %}
+            </div>
+            <h3>{{ article.title }}</h3>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
 <!-- World News Section -->
 {% if world_news %}
 <section class="news-section-wrap reveal">

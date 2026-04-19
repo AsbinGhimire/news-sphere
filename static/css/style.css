@@ -324,8 +324,8 @@ nav ul li a:hover {
     font-size: 1.5rem;
 }
 
-.section-header.world { border-color: var(--primary); }
-.section-header.tech { border-color: #002b49; }
+.section-header.nepal { border-color: var(--primary); }
+.section-header.world { border-color: #bb1919; }
 .section-header.sports { border-color: #008134; }
 
 .section-grid {
@@ -342,17 +342,22 @@ nav ul li a:hover {
 .section-card .img-wrap {
     aspect-ratio: 16 / 10;
     overflow: hidden;
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-sm);
+    background: #eee;
+}
+
+.section-card .img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .section-card h3 {
+    font-family: 'Playfair Display', serif;
     font-size: 1.125rem;
-    line-height: 1.4;
-}
-
-.section-card:hover h3 {
-    color: var(--primary);
-    text-decoration: underline;
+    line-height: 1.3;
+    font-weight: 700;
 }
 
 /* Premium Article Detail Layout */
