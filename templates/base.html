@@ -68,12 +68,13 @@
         {% endblock %}
     </main>
 
-    <footer class="footer">
-        <div class="container footer-grid">
-            <!-- Pillar 1: Brand & Social -->
+    <footer class="footer master-class">
+        <div class="footer-watermark">GLOBAL DISCOVERY</div>
+        <div class="container footer-mega-grid">
+            <!-- Pillar 1: Identity -->
             <div class="footer-column brand-pillar">
                 <a href="/" class="logo">Global<span>Discovery</span></a>
-                <p class="brand-desc">Professional journalism with localized insight. Serving Nepal and the world with integrity and innovation since 2026.</p>
+                <p class="editorial-mission">Dedicated to the pursuit of truth through localized insight. We bridge global developments with regional impact, serving the people of Nepal and the international community with integrity.</p>
                 <div class="social-links-footer">
                     <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social-icon" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
@@ -82,56 +83,73 @@
                 </div>
             </div>
 
-            <!-- Pillar 2: Discovery -->
-            <div class="footer-column discovery-pillar">
-                <h4>Discovery</h4>
+            <!-- Pillar 2: Topics -->
+            <div class="footer-column sitemap-pillar">
+                <h4>Global Topics</h4>
                 <ul>
-                    <li><a href="/">Latest Stories</a></li>
-                    <li><a href="/category/Nepal/">Nepal Discovery</a></li>
-                    <li><a href="/category/World/">World Report</a></li>
-                    <li><a href="/category/Tech/">Future Tech</a></li>
-                    <li><a href="/category/Sports/">Active Sports</a></li>
+                    <li><a href="/category/World/">Politics</a></li>
+                    <li><a href="/category/Business/">Economy</a></li>
+                    <li><a href="/category/Tech/">Technology</a></li>
+                    <li><a href="/category/Health/">Health & Science</a></li>
                 </ul>
             </div>
 
-            <!-- Pillar 3: Institutional -->
+            <!-- Pillar 3: Lifestyle -->
+            <div class="footer-column sitemap-pillar">
+                <h4>Lifestyle</h4>
+                <ul>
+                    <li><a href="/category/Sports/">Active Sports</a></li>
+                    <li><a href="#">Arts & Culture</a></li>
+                    <li><a href="#">Travel & Living</a></li>
+                    <li><a href="/category/World/">Global Features</a></li>
+                </ul>
+            </div>
+
+            <!-- Pillar 4: Nepal Regional -->
+            <div class="footer-column region-pillar">
+                <h4>Nepal Discovery</h4>
+                <ul>
+                    <li><a href="/category/Nepal/">Bagmati (Capital)</a></li>
+                    <li><a href="/category/Nepal/">Gandaki (Lakes)</a></li>
+                    <li><a href="/category/Nepal/">Lumbini (Heritage)</a></li>
+                    <li><a href="/category/Nepal/">Koshi & Madhesh</a></li>
+                </ul>
+            </div>
+
+            <!-- Pillar 5: Institutional -->
             <div class="footer-column institutional-pillar">
                 <h4>Institutional</h4>
                 <ul>
-                    <li><a href="{% url 'about' %}">About GlobalNews</a></li>
-                    <li><a href="{% url 'ethics' %}">Our Ethics Code</a></li>
-                    <li><a href="{% url 'contact' %}">Contact Editorial</a></li>
+                    <li><a href="{% url 'about' %}">About Us</a></li>
+                    <li><a href="{% url 'ethics' %}">Editorial Ethics</a></li>
+                    <li><a href="{% url 'contact' %}">Contact Us</a></li>
                     <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
-                    <li><a href="{% url 'terms' %}">Terms of Service</a></li>
                 </ul>
             </div>
             
-            <!-- Pillar 4: Stay Informed -->
+            <!-- Pillar 6: Engagement -->
             <div class="footer-column engagement-pillar">
                 <h4>Stay Informed</h4>
-                <p>Join 10,000+ others who get our top stories weekly.</p>
+                <p>Join the inner circle of informed readers.</p>
                 <form action="{% url 'subscribe_newsletter' %}" method="post" class="subscribe-form">
                     {% csrf_token %}
                     <div class="input-glass">
-                        <input type="email" name="email" placeholder="Your professional email..." required>
+                        <input type="email" name="email" placeholder="Professional email..." required>
                         <button type="submit">Join</button>
                     </div>
                 </form>
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
-                    {% endfor %}
-                {% endif %}
+                <div class="alert-container"></div>
+                <a href="{% url 'contact' %}" class="btn-tip">Submit a News Tip</a>
             </div>
         </div>
 
         <div class="footer-bottom">
             <div class="container">
                 <div class="footer-bottom-grid">
-                    <p>&copy; {{ current_year }} GlobalDiscovery Portal. All rights reserved.</p>
+                    <p>&copy; {{ current_year }} GlobalDiscovery Digital. Authority in Journalism.</p>
                     <div class="footer-badges">
-                        <span class="badge">Verified Journalism</span>
-                        <span class="badge">Nepal Edition</span>
+                        <span class="badge">Professional Tier</span>
+                        <span class="badge">Verify: G-2026-DISCOVERY</span>
                     </div>
                 </div>
             </div>
