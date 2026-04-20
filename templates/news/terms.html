@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Terms of Service - GlobalDiscovery{% endblock %}
+
+{% block content %}
+<section class="institutional-page reveal">
+    <header class="section-header business">
+        <h1>Terms of Service</h1>
+    </header>
+    
+    <div class="institutional-content">
+        <p class="lead">Terms for accessing GlobalDiscovery digital platforms.</p>
+        
+        <h3>1. Acceptance of Terms</h3>
+        <p>By accessing GlobalDiscovery, you agree to comply with these terms. If you do not agree, please do not use our services.</p>
+        
+        <h3>2. Intellectual Property</h3>
+        <p>All content on GlobalDiscovery, including text, images, and AI-synthesized insights, are the property of GlobalDiscovery and protected by copyright laws.</p>
+        
+        <h3>3. User Conduct</h3>
+        <p>Users are expected to engage with our content respectfully. We reserve the right to restrict access to anyone violating these standards.</p>
+    </div>
+</section>
+
+<style>
+.institutional-page { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+.institutional-content { font-size: 1.1rem; line-height: 1.8; color: var(--text); margin-top: 30px; }
+.institutional-content h3 { margin: 30px 0 10px; color: var(--primary); font-family: 'Outfit', sans-serif; text-transform: uppercase; font-size: 1.2rem; letter-spacing: 1px; }
+.lead { font-size: 1.4rem; font-weight: 700; color: var(--text-heading); margin-bottom: 20px; }
+</style>
+{% endblock %}

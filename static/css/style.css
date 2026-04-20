@@ -839,3 +839,33 @@ body.dark-mode .weather-widget {
         text-align: center;
     }
 }
+
+/* Back to Top Button */
+#back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 45px;
+    height: 45px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    font-size: 1.5rem;
+    font-weight: 900;
+    z-index: 2000;
+    box-shadow: 0 10px 20px rgba(183, 28, 28, 0.3);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#back-to-top:hover {
+    transform: translateY(-8px);
+    background: var(--primary-glow);
+    color: var(--primary);
+}
+
+#back-to-top.show {
+    display: block;
+}

@@ -53,4 +53,64 @@ document.addEventListener('DOMContentLoaded', () => {
         item.classList.add('reveal');
         revealObserver.observe(item);
     });
+
+    // Back to Top Logic
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 500) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // AJAX Newsletter Subscription
+    const subscribeForm = document.querySelector('.subscribe-form');
+    if (subscribeForm) {
+        subscribeForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const emailInput = subscribeForm.querySelector('input[name="email"]');
+            const submitBtn = subscribeForm.querySelector('button');
+            const alertContainer = document.querySelector('.alert-container') || document.createElement('div');
+            
+            if (!document.querySelector('.alert-container')) {
+                alertContainer.className = 'alert-container';
+                subscribeForm.after(alertContainer);
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Joining...';
+
+            const formData = new FormData(subscribeForm);
+            
+            try {
+                const response = await fetch(subscribeForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    }
+                });
+
+                const data = await response.json();
+                
+                alertContainer.innerHTML = `<div class="alert alert-${data.status}">${data.message}</div>`;
+                
+                if (data.status === 'success') {
+                    emailInput.value = '';
+                }
+            } catch (error) {
+                alertContainer.innerHTML = `<div class="alert alert-error">Something went wrong. Please try again later.</div>`;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Join';
+            }
+        });
+    }
 });

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy - GlobalDiscovery{% endblock %}
+
+{% block content %}
+<section class="institutional-page reveal">
+    <header class="section-header tech">
+        <h1>Privacy Policy</h1>
+    </header>
+    
+    <div class="institutional-content">
+        <p class="lead">Your digital privacy is a priority for us.</p>
+        
+        <h3>Information Collection</h3>
+        <p>We only collect information necessary to provide you with the best news experience, such as your email for newsletter subscriptions.</p>
+        
+        <h3>Data Protection</h3>
+        <p>We use industry-standard encryption to protect your data. We never sell your personal information to third parties.</p>
+        
+        <h3>Cookies</h3>
+        <p>We use minimal cookies to remember your theme preferences (Light/Dark mode) and to analyze site traffic anonymously.</p>
+    </div>
+</section>
+
+<style>
+.institutional-page { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+.institutional-content { font-size: 1.1rem; line-height: 1.8; color: var(--text); margin-top: 30px; }
+.institutional-content h3 { margin: 30px 0 10px; color: var(--primary); font-family: 'Outfit', sans-serif; text-transform: uppercase; font-size: 1.2rem; letter-spacing: 1px; }
+.lead { font-size: 1.4rem; font-weight: 700; color: var(--text-heading); margin-bottom: 20px; }
+</style>
+{% endblock %}

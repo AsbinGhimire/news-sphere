@@ -19,9 +19,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@400;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Professional Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
     <div id="scroll-progress"></div>
+    <button id="back-to-top" title="Navigate to Top">↑</button>
 
     <header class="header-main">
         <div class="container">
@@ -71,10 +75,10 @@
                 <a href="/" class="logo">Global<span>Discovery</span></a>
                 <p class="brand-desc">Professional journalism with localized insight. Serving Nepal and the world with integrity and innovation since 2026.</p>
                 <div class="social-links-footer">
-                    <a href="#" class="social-icon" aria-label="Facebook">FB</a>
-                    <a href="#" class="social-icon" aria-label="Twitter">TW</a>
-                    <a href="#" class="social-icon" aria-label="LinkedIn">LI</a>
-                    <a href="#" class="social-icon" aria-label="Instagram">IG</a>
+                    <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
 
@@ -94,11 +98,11 @@
             <div class="footer-column institutional-pillar">
                 <h4>Institutional</h4>
                 <ul>
-                    <li><a href="#">About GlobalNews</a></li>
-                    <li><a href="#">Our Ethics Code</a></li>
-                    <li><a href="#">Contact Editorial</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="{% url 'about' %}">About GlobalNews</a></li>
+                    <li><a href="{% url 'ethics' %}">Our Ethics Code</a></li>
+                    <li><a href="{% url 'contact' %}">Contact Editorial</a></li>
+                    <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
+                    <li><a href="{% url 'terms' %}">Terms of Service</a></li>
                 </ul>
             </div>
             

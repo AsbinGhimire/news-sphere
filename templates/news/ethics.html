@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Our Ethics Code - GlobalDiscovery{% endblock %}
+
+{% block content %}
+<section class="institutional-page reveal">
+    <header class="section-header sports">
+        <h1>Editorial Ethics Code</h1>
+    </header>
+    
+    <div class="institutional-content">
+        <p class="lead">Integrity is the bedrock of GlobalDiscovery journalism.</p>
+        
+        <h3>1. Accuracy and Verification</h3>
+        <p>We strive for complete accuracy. Our reporters are required to verify every fact and consult multiple sources before publication.</p>
+        
+        <h3>2. Independence</h3>
+        <p>GlobalDiscovery remains fiercely independent from political parties, corporate interests, and lobbying groups. Our only loyalty is to the truth.</p>
+        
+        <h3>3. AI Ethics</h3>
+        <p>While we use AI to help categorize and synthesize news, all 'Intelligence Insights' are clearly labeled, and final editorial decisions are always made by human journalists.</p>
+    </div>
+</section>
+
+<style>
+.institutional-page { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+.institutional-content { font-size: 1.1rem; line-height: 1.8; color: var(--text); margin-top: 30px; }
+.institutional-content h3 { margin: 30px 0 10px; color: var(--primary); font-family: 'Outfit', sans-serif; text-transform: uppercase; font-size: 1.2rem; letter-spacing: 1px; }
+.lead { font-size: 1.4rem; font-weight: 700; color: var(--text-heading); margin-bottom: 20px; }
+</style>
+{% endblock %}

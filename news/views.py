@@ -3,7 +3,7 @@ from django.contrib import messages
 from .models import Article, NewsletterSubscription
 from .utils import WeatherService
 
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.db.models import Q
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
@@ -104,10 +104,28 @@ def subscribe_newsletter(request):
         email = request.POST.get('email')
         if email:
             try:
-                NewsletterSubscription.objects.get_or_create(email=email)
-                messages.success(request, "Thank you! You've successfully subscribed to our newsletter.")
+                obj, created = NewsletterSubscription.objects.get_or_create(email=email)
+                status = 'success'
+                if created:
+                    message = "Thank you! You've successfully subscribed to our newsletter."
+                else:
+                    message = "You are already a subscriber. Thank you for your interest!"
             except Exception:
-                messages.error(request, "Something went wrong. Please try again.")
+                status = 'error'
+                message = "Something went wrong. Please try again."
+        else:
+            status = 'error'
+            message = "Please provide a valid email address."
+
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            from django.http import JsonResponse
+            return JsonResponse({'status': status, 'message': message})
+
+        if status == 'success':
+            messages.success(request, message)
+        else:
+            messages.error(request, message)
+
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
@@ -117,3 +135,18 @@ def global_context(request):
         'weather': WeatherService.get_weather(),
         'current_year': 2026
     }
+
+class AboutView(TemplateView):
+    template_name = 'news/about.html'
+
+class ContactView(TemplateView):
+    template_name = 'news/contact.html'
+
+class EthicsView(TemplateView):
+    template_name = 'news/ethics.html'
+
+class PrivacyView(TemplateView):
+    template_name = 'news/privacy.html'
+
+class TermsView(TemplateView):
+    template_name = 'news/terms.html'

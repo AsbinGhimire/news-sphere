@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}About Us - GlobalDiscovery{% endblock %}
+
+{% block content %}
+<section class="institutional-page reveal">
+    <header class="section-header nepal">
+        <h1>About GlobalDiscovery</h1>
+    </header>
+    
+    <div class="institutional-content">
+        <p class="lead">Serving Nepal and the world with professional, independent journalism since 2026.</p>
+        
+        <h3>Our Mission</h3>
+        <p>GlobalDiscovery was founded on the principle that fast-moving world events require localized insight. Our team is dedicated to providing high-integrity reporting that bridges the gap between international developments and their impact on the ground in Nepal.</p>
+        
+        <h3>Our Vision</h3>
+        <p>To become the most trusted independent news source for the Himalayan region, utilizing cutting-edge AI insights while never compromising on human editorial standards.</p>
+    </div>
+</section>
+
+<style>
+.institutional-page { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+.institutional-content { font-size: 1.1rem; line-height: 1.8; color: var(--text); margin-top: 30px; }
+.institutional-content h3 { margin: 30px 0 15px; color: var(--primary); font-family: 'Outfit', sans-serif; text-transform: uppercase; font-size: 1.2rem; letter-spacing: 1px; }
+.lead { font-size: 1.4rem; font-weight: 700; color: var(--text-heading); margin-bottom: 20px; }
+</style>
+{% endblock %}

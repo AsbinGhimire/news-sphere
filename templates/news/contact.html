@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us - GlobalDiscovery{% endblock %}
+
+{% block content %}
+<section class="institutional-page reveal">
+    <header class="section-header world">
+        <h1>Contact Editorial</h1>
+    </header>
+    
+    <div class="institutional-content">
+        <p class="lead">We value your insights and feedback. Connect with the GlobalDiscovery newsroom.</p>
+        
+        <div class="contact-grid-simple">
+            <div class="contact-item">
+                <h3>Editorial Inquiries</h3>
+                <p>editorial@globaldiscovery.com</p>
+            </div>
+            <div class="contact-item">
+                <h3>News Tips</h3>
+                <p>tips@globaldiscovery.com</p>
+            </div>
+            <div class="contact-item">
+                <h3>Office Location</h3>
+                <p>Kathmandu, Nepal<br>Global News Plaza, 4th Floor</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.institutional-page { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+.institutional-content { font-size: 1.1rem; line-height: 1.8; color: var(--text); margin-top: 30px; }
+.institutional-content h3 { margin: 30px 0 10px; color: var(--primary); font-family: 'Outfit', sans-serif; text-transform: uppercase; font-size: 1.2rem; letter-spacing: 1px; }
+.lead { font-size: 1.4rem; font-weight: 700; color: var(--text-heading); margin-bottom: 30px; }
+.contact-grid-simple { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; }
+@media (max-width: 768px) { .contact-grid-simple { grid-template-columns: 1fr; } }
+</style>
+{% endblock %}
