@@ -68,88 +68,91 @@
         {% endblock %}
     </main>
 
-    <footer class="footer master-class">
-        <div class="footer-watermark">GLOBAL DISCOVERY</div>
-        <div class="container footer-mega-grid">
-            <!-- Pillar 1: Identity -->
-            <div class="footer-column brand-pillar">
-                <a href="/" class="logo">Global<span>Discovery</span></a>
-                <p class="editorial-mission">Dedicated to the pursuit of truth through localized insight. We bridge global developments with regional impact, serving the people of Nepal and the international community with integrity.</p>
-                <div class="social-links-footer">
-                    <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-icon" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
-                    <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-
-            <!-- Pillar 2: Topics -->
-            <div class="footer-column sitemap-pillar">
-                <h4>Global Topics</h4>
-                <ul>
-                    <li><a href="/category/World/">Politics</a></li>
-                    <li><a href="/category/Business/">Economy</a></li>
-                    <li><a href="/category/Tech/">Technology</a></li>
-                    <li><a href="/category/Health/">Health & Science</a></li>
-                </ul>
-            </div>
-
-            <!-- Pillar 3: Lifestyle -->
-            <div class="footer-column sitemap-pillar">
-                <h4>Lifestyle</h4>
-                <ul>
-                    <li><a href="/category/Sports/">Active Sports</a></li>
-                    <li><a href="#">Arts & Culture</a></li>
-                    <li><a href="#">Travel & Living</a></li>
-                    <li><a href="/category/World/">Global Features</a></li>
-                </ul>
-            </div>
-
-            <!-- Pillar 4: Nepal Regional -->
-            <div class="footer-column region-pillar">
-                <h4>Nepal Discovery</h4>
-                <ul>
-                    <li><a href="/category/Nepal/">Bagmati (Capital)</a></li>
-                    <li><a href="/category/Nepal/">Gandaki (Lakes)</a></li>
-                    <li><a href="/category/Nepal/">Lumbini (Heritage)</a></li>
-                    <li><a href="/category/Nepal/">Koshi & Madhesh</a></li>
-                </ul>
-            </div>
-
-            <!-- Pillar 5: Institutional -->
-            <div class="footer-column institutional-pillar">
-                <h4>Institutional</h4>
-                <ul>
-                    <li><a href="{% url 'about' %}">About Us</a></li>
-                    <li><a href="{% url 'ethics' %}">Editorial Ethics</a></li>
-                    <li><a href="{% url 'contact' %}">Contact Us</a></li>
-                    <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
-                </ul>
-            </div>
-            
-            <!-- Pillar 6: Engagement -->
-            <div class="footer-column engagement-pillar">
-                <h4>Stay Informed</h4>
-                <p>Join the inner circle of informed readers.</p>
-                <form action="{% url 'subscribe_newsletter' %}" method="post" class="subscribe-form">
-                    {% csrf_token %}
-                    <div class="input-glass">
-                        <input type="email" name="email" placeholder="Professional email..." required>
-                        <button type="submit">Join</button>
+    <footer class="footer stacked-authority">
+        <!-- Tier 1: Identity & Engagement Header -->
+        <div class="footer-tier tier-header">
+            <div class="container">
+                <div class="header-wrap">
+                    <div class="brand-block">
+                        <a href="/" class="logo">Global<span>Discovery</span></a>
+                        <p class="mission-statement">Independent journalism with localized insight. Serving Nepal and the global community since 2026.</p>
                     </div>
-                </form>
-                <div class="alert-container"></div>
-                <a href="{% url 'contact' %}" class="btn-tip">Submit a News Tip</a>
+                    <div class="engagement-block">
+                        <form action="{% url 'subscribe_newsletter' %}" method="post" class="subscribe-form">
+                            {% csrf_token %}
+                            <div class="input-set">
+                                <input type="email" name="email" placeholder="Professional news updates via email..." required>
+                                <button type="submit">Join the inner circle</button>
+                            </div>
+                        </form>
+                        <div class="alert-container"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="footer-bottom">
+        <!-- Tier 2: The Sitemap Grid -->
+        <div class="footer-tier tier-sitemap">
             <div class="container">
-                <div class="footer-bottom-grid">
-                    <p>&copy; {{ current_year }} GlobalDiscovery Digital. Authority in Journalism.</p>
-                    <div class="footer-badges">
+                <div class="sitemap-grid">
+                    <div class="sitemap-column">
+                        <h4>Global Top Stories</h4>
+                        <ul>
+                            <li><a href="/category/World/">World Politics</a></li>
+                            <li><a href="/category/Business/">Global Economy</a></li>
+                            <li><a href="/category/Tech/">Future Tech</a></li>
+                        </ul>
+                    </div>
+                    <div class="sitemap-column">
+                        <h4>Lifestyle & Arts</h4>
+                        <ul>
+                            <li><a href="/category/Sports/">Active Sports</a></li>
+                            <li><a href="#">Culture & Travel</a></li>
+                            <li><a href="#">Living & Health</a></li>
+                        </ul>
+                    </div>
+                    <div class="sitemap-column">
+                        <h4>Nepal Regional</h4>
+                        <ul>
+                            <li><a href="/category/Nepal/">Bagmati (Capital)</a></li>
+                            <li><a href="/category/Nepal/">Lumbini (Heritage)</a></li>
+                            <li><a href="/category/Nepal/">Gandaki & Beyond</a></li>
+                        </ul>
+                    </div>
+                    <div class="sitemap-column">
+                        <h4>Institutional</h4>
+                        <ul>
+                            <li><a href="{% url 'about' %}">About Us</a></li>
+                            <li><a href="{% url 'ethics' %}">Editorial Ethics</a></li>
+                            <li><a href="{% url 'contact' %}">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="sitemap-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
+                            <li><a href="{% url 'terms' %}">Terms of Service</a></li>
+                            <li><a href="{% url 'contact' %}">News Tips</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tier 3: The Basement Bar -->
+        <div class="footer-tier tier-basement">
+            <div class="container">
+                <div class="basement-wrap">
+                    <p class="copyright">&copy; {{ current_year }} GlobalDiscovery Digital Journalism. All rights reserved.</p>
+                    <div class="social-links-footer">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="legal-badges">
                         <span class="badge">Professional Tier</span>
-                        <span class="badge">Verify: G-2026-DISCOVERY</span>
+                        <span class="badge">Verified Authority</span>
                     </div>
                 </div>
             </div>
