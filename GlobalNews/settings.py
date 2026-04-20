@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Third party apps
     'whitenoise.runserver_nostatic',
-    
+    'django_apscheduler',
+
     # Internal apps
     'news',
 ]
@@ -68,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'news.views.global_context',
             ],
         },
     },

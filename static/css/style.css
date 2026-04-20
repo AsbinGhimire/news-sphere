@@ -509,3 +509,333 @@ body.dark-mode .ai-summary-pulse {
     .related-sidebar { position: static; margin-top: var(--space-xxl); }
     .detail-header h1 { font-size: 2.5rem; }
 }
+
+/* ==========================================================================
+   Professional Enhancements & Professional Journalism Suite
+   ========================================================================== */
+
+/* Professional Weather Widget */
+.weather-widget {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    font-size: 0.8rem;
+    color: var(--text);
+    margin: 0 15px;
+    font-weight: 600;
+}
+
+body.dark-mode .weather-widget {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.weather-icon { font-size: 1.1rem; }
+.weather-temp { color: var(--primary); font-weight: 800; }
+.weather-city { opacity: 0.6; text-transform: uppercase; font-size: 0.65rem; letter-spacing: 1px; }
+
+/* Breadcrumbs */
+.breadcrumbs {
+    margin-bottom: var(--space-xl);
+    font-size: 0.8rem;
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-muted);
+}
+.breadcrumbs a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 700;
+}
+.breadcrumbs span { margin: 0 8px; opacity: 0.3; }
+.breadcrumbs .current { color: var(--text); font-weight: 400; opacity: 0.8; }
+
+/* Article Meta & Reading Time */
+.read-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    color: var(--primary);
+    background: var(--primary-glow);
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+/* Social Share Suite */
+.share-suite {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: var(--space-xl);
+}
+
+.share-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: 900;
+    color: white;
+    text-decoration: none;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.share-btn:hover { transform: scale(1.15); }
+.share-btn.fb { background: #1877F2; }
+.share-btn.wa { background: #25D366; }
+.share-btn.x  { background: #000000; }
+
+/* Live Pulse Animation */
+.live-pulse {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #ff3b30;
+    border-radius: 50%;
+    margin-right: 8px;
+    box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.7);
+    animation: pulse 1.5s infinite;
+    vertical-align: middle;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(255, 59, 48, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 59, 48, 0); }
+}
+
+/* ==========================================================================
+   Stunning 4-Pillar Professional Footer
+   ========================================================================== */
+
+.footer {
+    background: #0a0a0b; /* Deep Charcoal for professional authority */
+    color: #e8eaed;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    border-top: 4px solid var(--primary);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 40px;
+    padding: 80px 20px;
+}
+
+.footer-column h4 {
+    font-family: 'Outfit', sans-serif;
+    color: var(--white);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 30px;
+    font-weight: 800;
+}
+
+/* Pillar 1: Brand & Social */
+.brand-pillar .logo {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.brand-desc {
+    color: #9aa0a6;
+    line-height: 1.7;
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+    max-width: 380px;
+}
+
+.social-links-footer {
+    display: flex;
+    gap: 12px;
+}
+
+.social-icon {
+    width: 38px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #e8eaed;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.social-icon:hover {
+    background: var(--primary);
+    transform: translateY(-50%) rotate(5deg);
+    border-color: var(--primary);
+    color: white;
+}
+
+/* Pillars 2 & 3: Lists */
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 12px;
+}
+
+.footer-column ul li a {
+    color: #9aa0a6;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.footer-column ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+    color: var(--white);
+}
+
+.footer-column ul li a:hover::after {
+    width: 100%;
+}
+
+/* Pillar 4: Engagement */
+.engagement-pillar p {
+    color: #9aa0a6;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.input-glass {
+    display: flex;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 5px;
+    transition: focus-within 0.3s;
+}
+
+.input-glass:focus-within {
+    border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.input-glass input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 12px 15px;
+    color: white;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.input-glass button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0 25px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.input-glass button:hover {
+    background: #e53935;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    background: #000;
+    padding: 30px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-bottom-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-bottom p {
+    font-size: 0.8rem;
+    color: #5f6368;
+}
+
+.footer-badges {
+    display: flex;
+    gap: 15px;
+}
+
+.badge {
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #9aa0a6;
+    padding: 4px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 1024px) {
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+        padding: 60px 20px;
+    }
+    
+    .footer-column {
+        text-align: center;
+    }
+    
+    .brand-desc {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .social-links-footer {
+        justify-content: center;
+    }
+    
+    .footer-bottom-grid {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+}

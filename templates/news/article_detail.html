@@ -9,15 +9,30 @@
 
 {% block content %}
 <div class="container article-page-container">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs reveal">
+        <a href="/">Home</a> <span>/</span>
+        <a href="{% url 'category_view' article.category %}">{{ article.category }}</a> <span>/</span>
+        <span class="current">{{ article.title|truncatechars:30 }}</span>
+    </nav>
+
     <!-- Main Content Pillar -->
     <main class="main-article-body">
         <header class="detail-header">
             <span class="category-badge">{{ article.category }}</span>
+            <span class="read-time">⏱️ {{ article.estimated_reading_time }} min read</span>
             <h1>{{ article.title }}</h1>
             <div class="detail-meta">
                 By <strong>{{ article.author|default:"Global Reporter" }}</strong> &bull; 
                 Source: <strong>{{ article.source }}</strong> &bull;
                 {{ article.published_at|date:"F d, Y" }}
+            </div>
+            
+            <!-- Social Sharing -->
+            <div class="share-suite">
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="share-btn fb" title="Share on Facebook">FB</a>
+                <a href="https://wa.me/?text={{ article.title }}%20{{ request.build_absolute_uri }}" target="_blank" class="share-btn wa" title="Share on WhatsApp">WA</a>
+                <a href="https://twitter.com/intent/tweet?text={{ article.title }}&url={{ request.build_absolute_uri }}" target="_blank" class="share-btn x" title="Share on X (Twitter)">X</a>
             </div>
         </header>
 

@@ -42,5 +42,20 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
+    @property
+    def estimated_reading_time(self):
+        """Calculates reading time based on 200 words per minute."""
+        word_count = len(self.content.split())
+        return max(1, round(word_count / 200))
+
     class Meta:
         ordering = ['-published_at']
+
+
+class NewsletterSubscription(models.Model):
+    email = models.EmailField(unique=True)
+    active = models.BooleanField(default=True)
+    subscribed_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email

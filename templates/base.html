@@ -32,6 +32,14 @@
                     <input type="text" name="q" placeholder="Explore stories..." aria-label="Search" required>
                     <button type="submit">Search</button>
                 </form>
+
+                <!-- Professional Weather Widget -->
+                <div class="weather-widget" title="{{ weather.condition }} in {{ weather.city }}">
+                    <span class="weather-icon">{{ weather.icon }}</span>
+                    <span class="weather-temp">{{ weather.temp }}°C</span>
+                    <span class="weather-city">{{ weather.city }}</span>
+                </div>
+
                 <button id="theme-toggle" class="theme-switch" aria-label="Toggle Theme">
                     <span class="theme-icon"></span>
                 </button>
@@ -57,8 +65,72 @@
     </main>
 
     <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 GlobalNews - Professional Independent Journalism. All rights reserved.</p>
+        <div class="container footer-grid">
+            <!-- Pillar 1: Brand & Social -->
+            <div class="footer-column brand-pillar">
+                <a href="/" class="logo">Global<span>Discovery</span></a>
+                <p class="brand-desc">Professional journalism with localized insight. Serving Nepal and the world with integrity and innovation since 2026.</p>
+                <div class="social-links-footer">
+                    <a href="#" class="social-icon" aria-label="Facebook">FB</a>
+                    <a href="#" class="social-icon" aria-label="Twitter">TW</a>
+                    <a href="#" class="social-icon" aria-label="LinkedIn">LI</a>
+                    <a href="#" class="social-icon" aria-label="Instagram">IG</a>
+                </div>
+            </div>
+
+            <!-- Pillar 2: Discovery -->
+            <div class="footer-column discovery-pillar">
+                <h4>Discovery</h4>
+                <ul>
+                    <li><a href="/">Latest Stories</a></li>
+                    <li><a href="/category/Nepal/">Nepal Discovery</a></li>
+                    <li><a href="/category/World/">World Report</a></li>
+                    <li><a href="/category/Tech/">Future Tech</a></li>
+                    <li><a href="/category/Sports/">Active Sports</a></li>
+                </ul>
+            </div>
+
+            <!-- Pillar 3: Institutional -->
+            <div class="footer-column institutional-pillar">
+                <h4>Institutional</h4>
+                <ul>
+                    <li><a href="#">About GlobalNews</a></li>
+                    <li><a href="#">Our Ethics Code</a></li>
+                    <li><a href="#">Contact Editorial</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            
+            <!-- Pillar 4: Stay Informed -->
+            <div class="footer-column engagement-pillar">
+                <h4>Stay Informed</h4>
+                <p>Join 10,000+ others who get our top stories weekly.</p>
+                <form action="{% url 'subscribe_newsletter' %}" method="post" class="subscribe-form">
+                    {% csrf_token %}
+                    <div class="input-glass">
+                        <input type="email" name="email" placeholder="Your professional email..." required>
+                        <button type="submit">Join</button>
+                    </div>
+                </form>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-grid">
+                    <p>&copy; {{ current_year }} GlobalDiscovery Portal. All rights reserved.</p>
+                    <div class="footer-badges">
+                        <span class="badge">Verified Journalism</span>
+                        <span class="badge">Nepal Edition</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
 

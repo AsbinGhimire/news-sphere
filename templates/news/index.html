@@ -5,7 +5,7 @@
 {% block content %}
 <!-- Breaking News Ticker -->
 <section class="breaking-news-bar reveal">
-    <div class="breaking-label">Breaking News</div>
+    <div class="breaking-label"><span class="live-pulse"></span> LIVE Breaking</div>
     <marquee scrollamount="5">
         {% for article in side_articles %}
             &bull; {{ article.title }} &nbsp;&nbsp;&nbsp;&nbsp;

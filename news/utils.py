@@ -47,3 +47,44 @@ class AIService:
             return response.choices[0].message.content.strip()
         except Exception as e:
             return f"AI Error during paraphrasing: {str(e)}"
+
+
+class WeatherService:
+    @staticmethod
+    def get_weather():
+        """
+        Returns simulated live weather for Kathmandu.
+        In a real app, this would use an API like OpenWeatherMap.
+        """
+        # Logic to vary weather slightly based on time of day
+        from datetime import datetime
+        hour = datetime.now().hour
+        
+        # Default/Starting values for Kathmandu
+        base_temp = 24
+        condition = "Sunny"
+        icon = "☀️"
+
+        if 5 <= hour < 10:
+            base_temp = 20
+            condition = "Clear"
+            icon = "🌅"
+        elif 10 <= hour < 17:
+            base_temp = 28
+            condition = "Sunny"
+            icon = "☀️"
+        elif 17 <= hour < 20:
+            base_temp = 22
+            condition = "Cloudy"
+            icon = "⛅"
+        else:
+            base_temp = 18
+            condition = "Clear"
+            icon = "🌙"
+
+        return {
+            'city': 'Kathmandu',
+            'temp': base_temp,
+            'condition': condition,
+            'icon': icon
+        }

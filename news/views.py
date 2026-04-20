@@ -1,5 +1,7 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Article
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
+from .models import Article, NewsletterSubscription
+from .utils import WeatherService
 
 from django.views.generic import ListView, DetailView
 from django.db.models import Q
@@ -95,3 +97,23 @@ class ArticleSearchView(ListView):
         context = super().get_context_data(**kwargs)
         context['category_name'] = f"Search Results for '{self.request.GET.get('q', '')}'"
         return context
+
+
+def subscribe_newsletter(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        if email:
+            try:
+                NewsletterSubscription.objects.get_or_create(email=email)
+                messages.success(request, "Thank you! You've successfully subscribed to our newsletter.")
+            except Exception:
+                messages.error(request, "Something went wrong. Please try again.")
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+def global_context(request):
+    """Context processor for weather and other global data."""
+    return {
+        'weather': WeatherService.get_weather(),
+        'current_year': 2026
+    }
