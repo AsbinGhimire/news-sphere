@@ -1,0 +1,87 @@
+<footer class="footer professional-footer">
+    <div class="container footer-grid">
+
+        <!-- ── Brand Identity ── -->
+        <div class="footer-section brand-card reveal">
+            <a href="/" class="logo">Global<span>Discovery</span></a>
+            <p class="mission-text">Journalism suspended in the pursuit of absolute truth. Exploring the interface between global events and regional reality.</p>
+            <div class="social-hover-suite">
+                <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon" aria-label="X / Twitter"><i class="fab fa-x-twitter"></i></a>
+                <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+
+        <!-- ── Global Topics ── -->
+        <div class="footer-section sitemap-card reveal">
+            <h4><i class="fas fa-globe-americas"></i> News Topics</h4>
+            <div class="topics-grid">
+                <ul>
+                    <li><a href="/category/World/">Politics</a></li>
+                    <li><a href="/category/Business/">Economy</a></li>
+                    <li><a href="/category/Tech/">Technology</a></li>
+                    <li><a href="/category/Science/">Science</a></li>
+                </ul>
+                <ul>
+                    <li><a href="/category/Health/">Health</a></li>
+                    <li><a href="/category/Sports/">Sports</a></li>
+                    <li><a href="/category/Culture/">Culture</a></li>
+                    <li><a href="/category/Travel/">Travel</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ── Nepal Discovery ── -->
+        <div class="footer-section nepal-feature-card reveal">
+            <h4><i class="fas fa-mountain"></i> Nepal News</h4>
+            <div class="feature-icon"><i class="fas fa-mountain-sun"></i></div>
+            <p>Localized insights from the heart of the Himalayas.</p>
+            <ul>
+                <li><a href="/category/Nepal/">Bagmati</a></li>
+                <li><a href="/category/Nepal/">Gandaki</a></li>
+                <li><a href="/category/Nepal/">Lumbini</a></li>
+                <li><a href="/category/Nepal/">Koshi</a></li>
+            </ul>
+        </div>
+
+        <!-- ── Newsletter ── -->
+        <div class="footer-section newsletter-focal reveal">
+            <h4><i class="fas fa-paper-plane"></i> Newsletter</h4>
+            <p>Join our inner circle for weekly global insights.</p>
+            <form action="{% url 'subscribe_newsletter' %}" method="post" class="subscribe-form">
+                {% csrf_token %}
+                <div class="glass-input-group">
+                    <input type="email" name="email" placeholder="Enter your email address" required>
+                    <button type="submit">Subscribe</button>
+                </div>
+            </form>
+            <div class="alert-container"></div>
+        </div>
+
+        <!-- ── Institutional ── -->
+        <div class="footer-section institutional-card reveal">
+            <h4><i class="fas fa-info-circle"></i> Info</h4>
+            <ul>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'ethics' %}">Editorial Ethics</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
+                <li><a href="{% url 'terms' %}">Terms of Service</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- ── Copyright Basement ── -->
+    <div class="footer-basement">
+        <div class="container basement-wrap">
+            <p class="copyright">&copy; {{ current_year }} GlobalDiscovery Digital. All rights reserved.</p>
+            <div class="basement-links">
+                <span><i class="fas fa-check-circle"></i> Verified Authority</span>
+                <span><i class="fas fa-flag"></i> Nepal Edition</span>
+                <span><i class="fas fa-history"></i> Est. 2024</span>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -45,8 +45,19 @@ body.dark-mode {
 }
 
 @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(var(--space-md)); }
+    from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 body {
@@ -90,17 +101,17 @@ h1, h2, h3, .featured-card h1 {
 }
 
 /* Header & Navigation */
-.header-main {
-    background: var(--bg-card);
-    border-bottom: 2px solid var(--primary);
-    padding: var(--space-md) 0;
+.professional-header {
+    background: #0d0d0f; /* Matched to Footer */
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 12px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
 }
 
-.header-main .container {
+.professional-header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -139,10 +150,11 @@ body.dark-mode .theme-icon {
 }
 
 .logo {
-    font-size: 1.75rem;
+    font-size: 1.6rem;
     font-weight: 800;
     text-decoration: none;
-    color: var(--text);
+    color: #fff; /* White for dark header */
+    letter-spacing: -0.02em;
 }
 
 .logo span {
@@ -152,19 +164,25 @@ body.dark-mode .theme-icon {
 .search-form {
     display: flex;
     align-items: center;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 4px; /* Sharper edges for authority */
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
     padding: 2px;
+    transition: all 0.3s;
+}
+
+.search-form:focus-within {
+    border-color: var(--primary);
+    background: rgba(255,255,255,0.08);
 }
 
 .search-form input {
     background: transparent;
     border: none;
-    padding: var(--space-sm) var(--space-md);
-    color: var(--text);
-    font-size: 0.875rem;
-    width: 180px;
+    padding: 8px 16px;
+    color: #fff;
+    font-size: 0.85rem;
+    width: 200px;
     outline: none;
 }
 
@@ -172,34 +190,50 @@ body.dark-mode .theme-icon {
     background: var(--primary);
     color: white;
     border: none;
-    padding: var(--space-sm) var(--space-lg);
+    padding: 8px 18px;
     border-radius: 2px;
     cursor: pointer;
     font-weight: 700;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
 }
 
 /* Sub-Navbar */
-.navbar {
-    background: var(--bg-card);
-    border-bottom: 1px solid var(--border);
+.professional-navbar {
+    background: #111216; /* Slightly lighter than header */
+    border-bottom: 1px solid rgba(255,255,255,0.04);
 }
 
 nav ul {
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: var(--space-sm);
+    gap: 0;
 }
 
 nav ul li a {
     display: block;
-    padding: var(--space-md) var(--space-lg);
-    color: var(--text-muted);
+    padding: 14px 24px;
+    color: #9aa0a6;
     text-decoration: none;
     font-weight: 700;
-    font-size: 0.75rem;
-    transition: color 0.2s;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.3s;
+    border-bottom: 2px solid transparent;
+}
+
+nav ul li a:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.03);
+    border-bottom-color: var(--primary);
+}
+
+nav ul li a i {
+    margin-right: 8px;
+    font-size: 0.8rem;
+    color: var(--primary);
 }
 
 nav ul li a:hover {
@@ -518,14 +552,14 @@ body.dark-mode .ai-summary-pulse {
 .weather-widget {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
-    background: rgba(0, 0, 0, 0.04);
-    border: 1px solid var(--border);
-    border-radius: 50px;
-    font-size: 0.8rem;
-    color: var(--text);
-    margin: 0 15px;
+    gap: 10px;
+    padding: 6px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: #fff;
+    margin: 0 10px;
     font-weight: 600;
 }
 
@@ -618,130 +652,364 @@ body.dark-mode .weather-widget {
 }
 
 /* ==========================================================================
-   Stacked Authority Footer Suite
+   Professional News Portal Footer — Editorial Grade
    ========================================================================== */
 
-.footer.stacked-authority {
-    background: #0d0e12;
-    color: #e8eaed;
-    padding: 0;
+/* Hidden: space-particles element is kept in HTML but hidden */
+.space-particles { display: none; }
+
+/* ── Footer Shell ── */
+.footer.professional-footer {
+    background: #0d0d0f;
     border-top: 4px solid var(--primary);
+    color: #c9cdd4;
+    font-family: 'Inter', sans-serif;
+    position: relative;
 }
 
-.footer-tier {
-    padding: 60px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+/* ── Top Brand Bar ── */
+.footer-brand-bar {
+    background: #111216;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 32px 0;
 }
 
-.footer-tier:last-child {
-    border-bottom: none;
-    padding: 30px 0;
+/* ── Main Footer Grid ── */
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1.2fr 1.2fr 1.4fr 1.2fr;
+    grid-template-areas: "brand topics nepal newsletter institutional";
+    gap: 0;
+    padding: 32px 0 24px;
+    position: relative;
+    z-index: 2;
 }
 
-/* Tier 1: Header/Branding */
-.tier-header .header-wrap {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 40px;
+/* Column dividers */
+.footer-section + .footer-section {
+    border-left: 1px solid rgba(255,255,255,0.06);
+    padding-left: 36px;
 }
 
-.brand-block .logo { font-size: 2.2rem; margin-bottom: 15px; display: block; }
-.mission-statement { color: #80868b; max-width: 400px; font-size: 0.95rem; line-height: 1.6; }
-
-.engagement-block { flex: 1; max-width: 500px; }
-.input-set {
-    display: flex;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    padding: 4px;
-}
-
-.input-set input {
-    flex: 1;
+/* ── Base Section Reset ── */
+.footer-section {
     background: transparent;
     border: none;
-    padding: 12px 15px;
-    color: white;
-    outline: none;
+    border-radius: 0;
+    padding: 0 36px 0 0;
+    box-shadow: none;
+    transition: none;
 }
 
-.input-set button {
-    background: var(--primary);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 0 25px;
-    font-weight: 800;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    cursor: pointer;
+.footer-section:hover {
+    transform: none;
+    border-color: transparent;
+    box-shadow: none;
 }
 
-/* Tier 2: Sitemap Grid */
-.sitemap-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 30px;
-}
-
-.sitemap-column h4 {
+/* ── Section Label / Heading ── */
+.footer-section h4 {
     font-family: 'Outfit', sans-serif;
+    color: #ffffff;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 800;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--primary);
+    display: inline-block;
+}
+
+/* ── Grid Area Assignments ── */
+.brand-card          { grid-area: brand; }
+.sitemap-card        { grid-area: topics; }
+.nepal-feature-card  { grid-area: nepal; }
+.newsletter-focal    { grid-area: newsletter; }
+.institutional-card  { grid-area: institutional; }
+
+/* ── Brand Card ── */
+.brand-card {
+    padding-right: 40px;
+}
+
+.brand-card .logo {
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+    display: inline-block;
+    color: #ffffff;
+}
+
+.brand-card .logo span { color: var(--primary); }
+
+.mission-text {
+    color: #7a8190;
+    line-height: 1.6;
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+    max-width: 280px;
+}
+
+/* Social Icons */
+.social-hover-suite {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.social-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9aa0ad;
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.2s;
+}
+
+.social-icon:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+/* ── Link Lists ── */
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+    color: #7a8190;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 0.2s, padding-left 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.footer-section ul li a::before {
+    content: '';
+    width: 0;
+    height: 1px;
+    background: var(--primary);
+    transition: width 0.25s ease;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.footer-section ul li a:hover {
+    color: #ffffff;
+    padding-left: 4px;
+}
+
+.footer-section ul li a:hover::before {
+    width: 10px;
+}
+
+/* ── Topics Two-Column Grid ── */
+.topics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 24px;
+}
+
+/* ── Nepal Feature Card ── */
+.nepal-feature-card {
+    background: transparent;
+    border-color: transparent;
+}
+
+.feature-icon {
+    font-size: 1.6rem;
+    color: var(--primary);
+    margin-bottom: 12px;
+    display: block;
+    text-shadow: none;
+}
+
+.nepal-feature-card > p {
+    font-size: 0.8rem;
+    color: #55606e;
+    margin-bottom: 18px;
+    line-height: 1.6;
+}
+
+/* ── Newsletter Card ── */
+.newsletter-focal {
+    background: transparent;
+    border: none;
+    padding: 0 36px 0 0;
+    box-shadow: none;
+}
+
+.newsletter-focal > p {
+    font-size: 0.8rem;
+    color: #55606e;
+    margin-bottom: 18px;
+    line-height: 1.6;
+}
+
+.glass-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+}
+
+.glass-input-group input {
+    background: #1a1d24;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    padding: 11px 14px;
+    color: #e0e4eb;
+    font-size: 0.875rem;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.2s;
+    font-family: 'Inter', sans-serif;
+}
+
+.glass-input-group input::placeholder { color: #4a5060; }
+
+.glass-input-group input:focus {
+    border-color: var(--primary);
+}
+
+.glass-input-group button {
+    background: var(--primary);
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 11px 20px;
+    font-weight: 700;
     font-size: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--white);
-    margin-bottom: 25px;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: none;
 }
 
-.sitemap-column ul { list-style: none; padding: 0; }
-.sitemap-column ul li { margin-bottom: 10px; }
-.sitemap-column ul li a {
-    color: #9aa0a6;
-    text-decoration: none;
-    font-size: 0.85rem;
-    transition: color 0.2s;
+.glass-input-group button:hover {
+    background: #c62828;
+    transform: none;
+    box-shadow: none;
 }
 
-.sitemap-column ul li a:hover { color: var(--primary-light); }
+.alert-container {
+    margin-top: 8px;
+    font-size: 0.78rem;
+    color: #6dd370;
+    min-height: 18px;
+}
 
-/* Tier 3: Basement Bar */
-.tier-basement { background: #000; }
+/* ── Footer Divider ── */
+.footer-divider {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin: 0;
+}
+
+/* ── Basement Copyright Bar ── */
+.footer-basement {
+    margin-top: 0;
+    padding: 20px 0;
+    background: #090a0c;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
 .basement-wrap {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.copyright { font-size: 0.8rem; color: #5f6368; }
-
-.social-links-footer { display: flex; gap: 15px; }
-.social-icon {
-    color: #9aa0a6;
-    font-size: 1rem;
-    transition: color 0.3s, transform 0.3s;
+.copyright {
+    font-size: 0.78rem;
+    color: #3e444f;
+    letter-spacing: 0.03em;
 }
 
-.social-icon:hover { color: var(--white); transform: translateY(-3px); }
-
-.legal-badges { display: flex; gap: 10px; }
-.legal-badges .badge {
-    font-size: 0.6rem;
-    border-color: rgba(255, 255, 255, 0.1);
-    color: #5f6368;
+.basement-links {
+    display: flex;
+    gap: 24px;
+    font-size: 0.7rem;
+    color: #3e444f;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.08em;
 }
 
-/* Responsive Stack */
-@media (max-width: 1024px) {
-    .sitemap-grid { grid-template-columns: repeat(3, 1fr); }
-    .tier-header .header-wrap { flex-direction: column; text-align: center; }
-    .mission-statement { margin: 0 auto; }
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+    .gravity-container {
+        grid-template-columns: 1.6fr 1fr 1fr;
+        grid-template-areas:
+            "brand topics nepal"
+            "newsletter newsletter institutional";
+        gap: 32px 0;
+    }
+
+    .gravity-card + .gravity-card { border-left: none; padding-left: 0; }
+
+    .gravity-card {
+        padding-right: 0;
+        padding-bottom: 32px;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .gravity-card:last-child { border-bottom: none; }
 }
 
 @media (max-width: 768px) {
-    .sitemap-grid { grid-template-columns: 1fr 1fr; }
-    .basement-wrap { flex-direction: column; gap: 20px; text-align: center; }
+    .gravity-container {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "brand brand"
+            "topics nepal"
+            "newsletter institutional";
+        gap: 28px 20px;
+        padding: 36px 0 24px;
+    }
+
+    .topics-grid { grid-template-columns: 1fr; gap: 0; }
+
+    .basement-wrap {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .basement-links { flex-wrap: wrap; justify-content: center; gap: 12px; }
+
+    .brand-card { padding-right: 0; }
+    .mission-text { max-width: 100%; }
+}
+
+@media (max-width: 480px) {
+    .gravity-container {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "brand" "topics" "nepal" "newsletter" "institutional";
+    }
 }
 
 /* Back to Top Button */

@@ -3,8 +3,13 @@ from openai import OpenAI
 from django.conf import settings
 
 class AIService:
+    """
+    Handles AI-powered functionalities like summarization and paraphrasing.
+    Integrates with OpenAI API for processing news content.
+    """
     @staticmethod
     def get_client():
+        """Initializes and returns the OpenAI client if API key is present."""
         api_key = os.getenv('OPENAI_API_KEY')
         if not api_key or api_key == 'your_openai_key_here':
             return None
@@ -12,6 +17,10 @@ class AIService:
 
     @classmethod
     def generate_summary(cls, content):
+        """
+        Generates a 2-3 line professional summary of the provided text.
+        Returns a mock summary if the API client is unavailable.
+        """
         client = cls.get_client()
         if not client:
             return f" [Mock AI Summary] This is a professional 2-3 line summary of: {content[:50]}... summarizing the key points of the global news event."
@@ -31,6 +40,10 @@ class AIService:
 
     @classmethod
     def generate_paraphrase(cls, content):
+        """
+        Simplifies complex news content into easy-to-read English.
+        Helps in improving accessibility for diverse audiences.
+        """
         client = cls.get_client()
         if not client:
             return f" [Mock Paraphrased Content] In simpler terms: The news discusses {content[:100]}... in easy English for better accessibility."
@@ -50,6 +63,10 @@ class AIService:
 
 
 class WeatherService:
+    """
+    Simulates weather data for presentation on the portal.
+    Currently hardcoded for Kathmandu with time-of-day variability.
+    """
     @staticmethod
     def get_weather():
         """

@@ -10,22 +10,35 @@ import re
 import urllib.parse
 
 class Command(BaseCommand):
+    """
+    Management command to automate news synchronization.
+    Pulls data from Google News RSS, cleans it, and enriches it with AI features.
+    """
     help = 'Fetches latest news about Nepal from Google News RSS with Smart Sanitization'
 
     def generate_smart_insight(self, title):
-        """Generates a professional 2-3 line summary based on the headline."""
+        """
+        Generates a professional 2-3 line summary based on the headline.
+        Acts as a fallback when the full AI service is not used or available.
+        """
         clean_title = title.split(' - ')[0] if ' - ' in title else title
         return (f"This strategic update highlights major developments regarding '{clean_title}'. "
                 f"GlobalDiscovery analysis suggests this event significantly impacts the current localized reporting landscape. "
                 "Early indicators point to a shift in institutional focus within the region.")
 
     def generate_simple_words(self, title):
-        """Generates a simplified, conversational version of the headline."""
+        """
+        Generates a simplified, conversational version of the headline.
+        Used for the 'Paraphrased Content' feature to aid readability.
+        """
         clean_title = title.split(' - ')[0] if ' - ' in title else title
         return f"In simple terms: People are currently discussing '{clean_title}' because of its high relevance to Nepal. It's an important story that's making headlines across several local sources today."
 
     def generate_image_prompt(self, title, category):
-        """Generates a smart category-based image prompt for AI image generation."""
+        """
+        Constructs a detailed prompt for AI image generation.
+        Tailors the scene context based on the article's category for visual consistency.
+        """
         category_prompts = {
             'Politics': 'Realistic photo of government officials, parliament discussion, press conference, serious tone, professional journalism photography, natural lighting, documentary style, 16:9',
             'Government': 'Realistic photo of government officials, parliament discussion, press conference, serious tone, professional journalism photography, natural lighting, documentary style, 16:9',
@@ -35,7 +48,7 @@ class Command(BaseCommand):
             'Business': 'Corporate environment, business meeting, finance discussion, city skyline, professional atmosphere, realistic editorial photography, 16:9',
         }
         
-        # Default to General/Breaking News style if category not found
+        # Default to a neutral journalistic style if category is unrecognized
         category_style = category_prompts.get(category, 'Real-world event scene, people, environment, natural composition, journalistic storytelling image, neutral tone, professional news photography, 16:9')
 
         return f"""
@@ -50,7 +63,15 @@ natural lighting, authentic scene, high detail,
 """.strip()
 
     def handle(self, *args, **options):
-        # RSS URL for Nepal News (Nepali Language & Region)
+        """
+        Main execution logic for the fetch_news command.
+        1. Connects to RSS feed.
+        2. Iterates through news entries.
+        3. Sanitizes HTML/Text data.
+        4. Generates AI metadata (summaries, images).
+        5. Saves/Updates the database.
+        """
+        # RSS URL for Nepal News (configured for Nepali language and region)
         url = "https://news.google.com/rss/search?q=Nepal&hl=ne&gl=NP&ceid=NP:ne"
 
         self.stdout.write(self.style.SUCCESS(f"Connecting to GlobalDiscovery Intelligence Bridge: {url}"))
@@ -65,40 +86,40 @@ natural lighting, authentic scene, high detail,
             articles_added = 0
             
             for entry in feed.entries:
-                # Basic Mapping
+                # Basic Data Extraction
                 raw_title = entry.get('title', 'No Title')
                 article_id = entry.get('id', entry.get('link'))
                 link = entry.get('link', '')
                 raw_summary = entry.get('summary', '')
                 
-                # Precise Cleaning with BeautifulSoup
+                # HTML Sanitization: Extract clean text from RSS summary blobs
                 soup = BeautifulSoup(raw_summary, "html.parser")
                 clean_description = soup.get_text().strip()
                 
-                # Extract clean source and title
+                # Source Attribution: Extract publisher name and clean the headline
                 source = entry.get('source', {}).get('title', 'Google News')
                 if ' - ' in raw_title:
                     clean_title = raw_title.rsplit(' - ', 1)[0]
                 else:
                     clean_title = raw_title
 
-                # Smart Intelligence Generation
+                # Content Enrichment
                 category_name = 'Nepal'
                 ai_summary = self.generate_smart_insight(clean_title)
                 simple_words = self.generate_simple_words(clean_title)
                 
-                # AI Image Generation
+                # AI Image Synchronization: Uses Pollinations AI for dynamic visuals
                 image_prompt = self.generate_image_prompt(clean_title, category_name)
                 encoded_prompt = urllib.parse.quote(image_prompt)
                 ai_image_url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width=1280&height=720&nologo=true"
                 
-                # Handling published date
+                # Timestamp awareness for proper chronological ordering in Django
                 published_at = None
                 if hasattr(entry, 'published_parsed'):
                     dt = datetime.fromtimestamp(time.mktime(entry.published_parsed))
                     published_at = make_aware(dt)
 
-                # article_id is our unique identifier to avoid duplicates
+                # Atomically update or create the article record
                 obj, created = Article.objects.update_or_create(
                     article_id=article_id,
                     defaults={
@@ -117,10 +138,11 @@ natural lighting, authentic scene, high detail,
 
                 if created:
                     articles_added += 1
+                    # Log successful addition (cleans unicode for safe console output)
                     safe_title = clean_title.encode('ascii', 'ignore').decode('ascii')
                     self.stdout.write(self.style.SUCCESS(f"Successfully added & sanitized: {safe_title}"))
                 else:
-                    # Even if not created, let's update and clean existing bad data
+                    # Update existing records to reflect latest sanitization/AI logic
                     obj.title = clean_title
                     obj.description = clean_description
                     obj.content = clean_description
@@ -132,4 +154,4 @@ natural lighting, authentic scene, high detail,
             self.stdout.write(self.style.SUCCESS(f"Finished Data Sanitized! Processed {len(feed.entries)} articles. Added {articles_added} new."))
 
         except Exception as e:
-            self.stdout.write(self.style.ERROR(f"An unexpected error occurred: {e}"))
+            self.stdout.write(self.style.ERROR(f"An unexpected error occurred during sync: {e}"))

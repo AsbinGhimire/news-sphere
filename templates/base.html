@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}GlobalNews - Professional News Portal{% endblock %}</title>
-    
+
     <!-- SEO Meta Tags -->
     <meta name="description" content="{% block meta_description %}GlobalNews provides the latest world, tech, sports, and business news with professional integrity.{% endblock %}">
     <meta name="robots" content="index, follow">
@@ -14,151 +14,34 @@
     <meta property="og:title" content="{% block og_title %}GlobalNews Portal{% endblock %}">
     <meta property="og:description" content="{% block og_description %}Your source for professional journalism.{% endblock %}">
     <meta property="og:image" content="{% block og_image %}/static/images/logo.png{% endblock %}">
-    
-    <link rel="stylesheet" href="/static/css/style.css">
+
+    <link rel="stylesheet" href="/static/css/style.css?v=1.6">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@400;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
-    
+
     <!-- FontAwesome for Professional Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    {% block extra_head %}{% endblock %}
 </head>
 <body>
     <div id="scroll-progress"></div>
     <button id="back-to-top" title="Navigate to Top">↑</button>
 
-    <header class="header-main">
-        <div class="container">
-            <a href="/" class="logo">Global<span>Discovery</span></a>
-            
-            <div class="header-tools">
-                <form action="{% url 'search_view' %}" method="get" class="search-form">
-                    <input type="text" name="q" placeholder="Explore stories..." aria-label="Search" required>
-                    <button type="submit">Search</button>
-                </form>
+    <!-- ========== NAVBAR ========== -->
+    {% include "partials/navbar.html" %}
 
-                <!-- Professional Weather Widget -->
-                <div class="weather-widget" title="{{ weather.condition }} in {{ weather.city }}">
-                    <span class="weather-icon">{{ weather.icon }}</span>
-                    <span class="weather-temp">{{ weather.temp }}°C</span>
-                    <span class="weather-city">{{ weather.city }}</span>
-                </div>
-
-                <button id="theme-toggle" class="theme-switch" aria-label="Toggle Theme">
-                    <span class="theme-icon"></span>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <nav class="navbar">
-        <div class="container">
-            <ul>
-                <li><a href="/">Latest</a></li>
-                <li><a href="/category/World/">World</a></li>
-                <li><a href="/category/Tech/">Future</a></li>
-                <li><a href="/category/Sports/">Active</a></li>
-                <li><a href="/category/Business/">Growth</a></li>
-            </ul>
-        </div>
-    </nav>
-
+    <!-- ========== MAIN CONTENT ========== -->
     <main class="container">
         {% block content %}
         {% endblock %}
     </main>
 
-    <footer class="footer stacked-authority">
-        <!-- Tier 1: Identity & Engagement Header -->
-        <div class="footer-tier tier-header">
-            <div class="container">
-                <div class="header-wrap">
-                    <div class="brand-block">
-                        <a href="/" class="logo">Global<span>Discovery</span></a>
-                        <p class="mission-statement">Independent journalism with localized insight. Serving Nepal and the global community since 2026.</p>
-                    </div>
-                    <div class="engagement-block">
-                        <form action="{% url 'subscribe_newsletter' %}" method="post" class="subscribe-form">
-                            {% csrf_token %}
-                            <div class="input-set">
-                                <input type="email" name="email" placeholder="Professional news updates via email..." required>
-                                <button type="submit">Join the inner circle</button>
-                            </div>
-                        </form>
-                        <div class="alert-container"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tier 2: The Sitemap Grid -->
-        <div class="footer-tier tier-sitemap">
-            <div class="container">
-                <div class="sitemap-grid">
-                    <div class="sitemap-column">
-                        <h4>Global Top Stories</h4>
-                        <ul>
-                            <li><a href="/category/World/">World Politics</a></li>
-                            <li><a href="/category/Business/">Global Economy</a></li>
-                            <li><a href="/category/Tech/">Future Tech</a></li>
-                        </ul>
-                    </div>
-                    <div class="sitemap-column">
-                        <h4>Lifestyle & Arts</h4>
-                        <ul>
-                            <li><a href="/category/Sports/">Active Sports</a></li>
-                            <li><a href="#">Culture & Travel</a></li>
-                            <li><a href="#">Living & Health</a></li>
-                        </ul>
-                    </div>
-                    <div class="sitemap-column">
-                        <h4>Nepal Regional</h4>
-                        <ul>
-                            <li><a href="/category/Nepal/">Bagmati (Capital)</a></li>
-                            <li><a href="/category/Nepal/">Lumbini (Heritage)</a></li>
-                            <li><a href="/category/Nepal/">Gandaki & Beyond</a></li>
-                        </ul>
-                    </div>
-                    <div class="sitemap-column">
-                        <h4>Institutional</h4>
-                        <ul>
-                            <li><a href="{% url 'about' %}">About Us</a></li>
-                            <li><a href="{% url 'ethics' %}">Editorial Ethics</a></li>
-                            <li><a href="{% url 'contact' %}">Contact</a></li>
-                        </ul>
-                    </div>
-                    <div class="sitemap-column">
-                        <h4>Resources</h4>
-                        <ul>
-                            <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
-                            <li><a href="{% url 'terms' %}">Terms of Service</a></li>
-                            <li><a href="{% url 'contact' %}">News Tips</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tier 3: The Basement Bar -->
-        <div class="footer-tier tier-basement">
-            <div class="container">
-                <div class="basement-wrap">
-                    <p class="copyright">&copy; {{ current_year }} GlobalDiscovery Digital Journalism. All rights reserved.</p>
-                    <div class="social-links-footer">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-x-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                    </div>
-                    <div class="legal-badges">
-                        <span class="badge">Professional Tier</span>
-                        <span class="badge">Verified Authority</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- ========== FOOTER ========== -->
+    {% include "partials/footer.html" %}
 
     <script src="/static/js/main.js"></script>
+    {% block extra_scripts %}{% endblock %}
 </body>
 </html>

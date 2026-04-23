@@ -1,0 +1,37 @@
+<header class="professional-header">
+    <div class="container">
+        <a href="/" class="logo">Global<span>Discovery</span></a>
+        
+        <div class="header-tools">
+            <form action="{% url 'search_view' %}" method="get" class="search-form">
+                <i class="fas fa-search" style="margin-left: 12px; color: #4a5060; font-size: 0.8rem;"></i>
+                <input type="text" name="q" placeholder="Search global news..." aria-label="Search" required>
+                <button type="submit">Search</button>
+            </form>
+
+            <!-- Professional Weather Widget -->
+            <div class="weather-widget" title="{{ weather.condition }} in {{ weather.city }}">
+                <span class="weather-icon">{{ weather.icon }}</span>
+                <span class="weather-temp">{{ weather.temp }}°C</span>
+                <span class="weather-city">{{ weather.city }}</span>
+            </div>
+
+            <button id="theme-toggle" class="theme-switch" aria-label="Toggle Theme">
+                <span class="theme-icon"></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<nav class="professional-navbar">
+    <div class="container">
+        <ul>
+            <li><a href="/"><i class="fas fa-bolt"></i> Latest</a></li>
+            <li><a href="/category/World/"><i class="fas fa-globe"></i> World</a></li>
+            <li><a href="/category/Tech/"><i class="fas fa-microchip"></i> Future</a></li>
+            <li><a href="/category/Sports/"><i class="fas fa-running"></i> Active</a></li>
+            <li><a href="/category/Business/"><i class="fas fa-chart-line"></i> Growth</a></li>
+            <li><a href="/category/Nepal/"><i class="fas fa-mountain"></i> Nepal</a></li>
+        </ul>
+    </div>
+</nav>
